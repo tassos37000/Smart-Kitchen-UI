@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".MainScreen"
+            android:name=".MainScreenActivity"
             android:exported="true"
             android:label="@string/title_activity_main_screen"
             android:screenOrientation="landscape"
