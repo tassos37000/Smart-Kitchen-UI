@@ -33,4 +33,13 @@
     <string name="techSupportIcon">tech support icon</string>
 
     <string name="ovenIcon">oven icon</string>
+
+    <string name="languageSwitchEnglish">English</string>
+    <string name="languageSwitchGreek">Greek</string>
+    <string name="themeSwitchLight">Light</string>
+    <string name="themeSwitchDark">Dark</string>
+    <string name="voiceCommands">Voice Commands</string>
+    <string name="voiceResponses">Voice Responses</string>
+    <string name="notificationsSwitch">Notifications</string>
+
 </resources>

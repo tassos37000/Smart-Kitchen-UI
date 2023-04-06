@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Switch
+        android:id="@+id/languageSwitch"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/languageSwitchEnglish"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textLanguageGreek"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textLanguageGreek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="324dp"
+        android:text="@string/languageSwitchGreek"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/languageSwitch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/languageSwitch"
+        app:layout_constraintVertical_bias="0.681" />
+
+    <Switch
+        android:id="@+id/themeSwitch"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/themeSwitchLight"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/languageSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/languageSwitch" />
+
+    <TextView
+        android:id="@+id/textThemeDark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/themeSwitchDark"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/themeSwitch"
+        app:layout_constraintEnd_toEndOf="@+id/textLanguageGreek"
+        app:layout_constraintStart_toStartOf="@+id/textLanguageGreek"
+        app:layout_constraintTop_toTopOf="@+id/themeSwitch" />
+
+    <Switch
+        android:id="@+id/voiceCommandSwitch"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/voiceCommands"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/themeSwitch"
+        app:layout_constraintStart_toStartOf="@+id/themeSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/themeSwitch" />
+
+    <Switch
+        android:id="@+id/voiceResponsesSwitch"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/voiceResponses"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/voiceCommandSwitch"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/voiceCommandSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/voiceCommandSwitch" />
+
+    <Switch
+        android:id="@+id/notificationSwitch"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/notificationsSwitch"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/voiceResponsesSwitch"
+        app:layout_constraintStart_toStartOf="@+id/voiceResponsesSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/voiceResponsesSwitch" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="481dp" />
+
+    <ImageView
+        android:id="@+id/imageVoiceComand"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/textThemeDark"
+        app:layout_constraintStart_toStartOf="@+id/textThemeDark"
+        app:layout_constraintTop_toTopOf="@+id/voiceCommandSwitch"
+        app:srcCompat="@drawable/microphone_mute" />
+
+    <ImageView
+        android:id="@+id/imageVoiceResponse"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageVoiceComand"
+        app:layout_constraintStart_toStartOf="@+id/imageVoiceComand"
+        app:layout_constraintTop_toTopOf="@+id/voiceResponsesSwitch"
+        app:srcCompat="@drawable/mute_sound" />
+
+    <ImageView
+        android:id="@+id/imageNotification"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageVoiceResponse"
+        app:layout_constraintStart_toStartOf="@+id/imageVoiceResponse"
+        app:layout_constraintTop_toTopOf="@+id/notificationSwitch"
+        app:srcCompat="@drawable/mute_bell" />
+
+    <ImageButton
+        android:id="@+id/techSupport"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/techSupportIcon"
+        android:scaleType="centerInside"
+        android:src="@drawable/support_blue"
+        android:text="@string/techSupport"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/settingsIcon"
+        android:scaleType="centerInside"
+        android:src="@drawable/back_arrow"
+        android:text="@string/settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
