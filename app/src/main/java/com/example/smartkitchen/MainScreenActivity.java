@@ -3,6 +3,8 @@ package com.example.smartkitchen;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainScreenActivity extends AppCompatActivity {
@@ -14,6 +16,12 @@ public class MainScreenActivity extends AppCompatActivity {
 
         settingsButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainScreenActivity.this, SettingsActivity.class);
+            startActivity(intent);
+        });
+
+        Button ovenButton = findViewById(R.id.ovenOnOff);
+        ovenButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainScreenActivity.this, ProgramsActivity.class);
             startActivity(intent);
         });
     }

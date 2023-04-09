@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/programSelector"
+        android:layout_width="329dp"
+        android:layout_height="50dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toBottomOf="@+id/techSupport"
+        app:layout_constraintStart_toStartOf="@+id/programsDesc"
+        app:layout_constraintTop_toTopOf="@+id/techSupport" />
+
+    <ImageButton
+        android:id="@+id/techSupport"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/techSupportIcon"
+        android:scaleType="centerInside"
+        android:src="@drawable/support_blue"
+        android:text="@string/techSupport"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="@color/white"
+        android:contentDescription="@string/settingsIcon"
+        android:scaleType="centerInside"
+        android:src="@drawable/back_arrow"
+        android:text="@string/settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/programsDesc"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="40dp"
+        android:scrollbars="vertical"
+        android:text="@string/program_description"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSelecProg"
+        android:layout_width="180dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/okButton"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="@+id/programsDesc"
+        app:layout_constraintStart_toStartOf="@+id/programsDesc"
+        app:layout_constraintTop_toBottomOf="@+id/programsDesc" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/minusTemp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/circled_button"
+        android:text="@string/minus"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="@+id/textTitleTemp"
+        app:layout_constraintTop_toBottomOf="@+id/textTitleTemp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/plusTemp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/circled_button"
+        android:text="@string/plus"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/minusTemp"
+        app:layout_constraintEnd_toEndOf="@+id/textTitleTemp"
+        app:layout_constraintTop_toTopOf="@+id/minusTemp" />
+
+    <TextView
+        android:id="@+id/textTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/minTempText"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/minusTemp"
+        app:layout_constraintEnd_toStartOf="@+id/plusTemp"
+        app:layout_constraintStart_toEndOf="@+id/minusTemp"
+        app:layout_constraintTop_toTopOf="@+id/minusTemp"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textTitleTemp"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="@string/temperature"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@+id/programsDesc" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:text="@string/title_select_prog"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/programSelector"
+        app:layout_constraintEnd_toStartOf="@+id/programSelector"
+        app:layout_constraintTop_toTopOf="@+id/programSelector" />
+
+    <NumberPicker
+        android:id="@+id/timer_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="170dp"
+        app:layout_constraintStart_toStartOf="@+id/minusTemp"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <NumberPicker
+        android:id="@+id/timer_minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="170dp"
+        app:layout_constraintEnd_toEndOf="@+id/plusTemp"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Hour"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/timer_hour"
+        app:layout_constraintStart_toStartOf="@+id/timer_hour"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minutes"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/timer_minutes"
+        app:layout_constraintStart_toStartOf="@+id/timer_minutes"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Set timer"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/plusTemp"
+        app:layout_constraintStart_toStartOf="@+id/minusTemp"
+        app:layout_constraintTop_toBottomOf="@+id/textTemp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

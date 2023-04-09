@@ -47,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity{
      */
     private void changeSaveSwitchImage(SwitchCompat toggleSwitch, ImageView imageView, String key, int imageOn, int imageOff){
         boolean SwitchState = sharedPreferences.getBoolean(key, true);
-        Log.i(key, String.valueOf(SwitchState));
+//        Log.i(key, String.valueOf(SwitchState));
         toggleSwitch.setChecked(SwitchState);
         if (SwitchState) {
             imageView.setImageResource(imageOn);

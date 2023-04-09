@@ -45,4 +45,16 @@
     <string name="desc_image_notifications">image of notifications</string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
+    <!-- Strings used for ProgramActivity -->
+    <string name="program_description">
+        LIGHT: Turns on the oven light.\nDEFROST PLUS: Defrost properly frozen food.\nFAN FORCED: Turns on the fan. You can cook different foods at the same time one or more positions and provides even heat distribution.\nFAN BAKE: Turns on the fan and heating elements. This function is ideal for bakery such as bread, pizza and focaccia.\nBAKE: Turns on top and bottom heating elements. This function is ideal red meats, roast beef and leg of lamb. \nPASTRY PLUS: Turns on the bottom heating element with the fan. This function is ideal for fruit flans, tarts, quiches and pastries. \nFAN GRILL: Turns on the top heating element with the fan. This function is ideal for cooking thick food items, whole pieces such as roast pork, poultry, etc. \nGRILL: Turns on the top heating element. This function is ideal for grills, kebabs and gratin dishes. White meats should be put at a distance from the grill.\nPYROLYTIC SELF-CLEAN: Cleans the oven.
+    </string>
+    <string name="okButton">OK</string>
+    <string name="minTempText">150</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="temperature">Temperature</string>
+    <string name="title_select_prog"><![CDATA[Select a program ->]]></string>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+
 </resources>
