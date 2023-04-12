@@ -64,31 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/topRight"
         tools:ignore="VisualLintBounds" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/ovenOnOff"
-        android:layout_width="206dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/turnOn"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="301dp"
-        android:layout_height="257dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="176dp"
-        android:contentDescription="@string/ovenIcon"
-        android:src="@drawable/oven_off"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ImageContrastCheck" />
 
     <ImageButton
         android:id="@+id/settings"
@@ -117,6 +93,15 @@
         android:scaleType="centerInside"
         android:src="@drawable/support_blue"
         android:text="@string/techSupport"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/content_main"
+        android:layout_width="463dp"
+        android:layout_height="389dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

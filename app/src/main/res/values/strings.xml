@@ -55,6 +55,10 @@
     <string name="minus">-</string>
     <string name="temperature">Temperature</string>
     <string name="title_select_prog"><![CDATA[Select a program ->]]></string>
+    <string name="turn_off">Turn off</string>
+    <string name="change_settings">Change Settings</string>
+    <string name="program_icon">program icon</string>
+    <string name="oven_icon">oven icon</string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
 </resources>

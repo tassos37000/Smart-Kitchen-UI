@@ -6,22 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".SecondFragment">
 
+    <ImageView
+        android:id="@+id/program_icon"
+        android:layout_width="91dp"
+        android:layout_height="67dp"
+        android:layout_marginEnd="25dp"
+        android:contentDescription="@string/program_icon"
+        app:layout_constraintEnd_toStartOf="@+id/temperatureText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
     <TextView
-        android:id="@+id/textview_second"
+        android:id="@+id/temperatureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/button_second"
+        android:layout_marginEnd="50dp"
+        android:text=""
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/program_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/program_icon" />
 
     <Button
-        android:id="@+id/button_second"
+        android:id="@+id/changeSettingsButton"
+        android:layout_width="272dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/change_settings"
+        app:layout_constraintEnd_toEndOf="@+id/temperatureText"
+        app:layout_constraintStart_toStartOf="@+id/program_icon"
+        app:layout_constraintTop_toBottomOf="@+id/program_icon" />
+
+    <ImageView
+        android:id="@+id/ovenIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_second" />
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/oven_icon"
+        app:layout_constraintEnd_toEndOf="@+id/changeSettingsButton"
+        app:layout_constraintStart_toStartOf="@+id/changeSettingsButton"
+        app:layout_constraintTop_toBottomOf="@+id/changeSettingsButton"
+        tools:src="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/turnOffButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/turn_off"
+        app:layout_constraintEnd_toEndOf="@+id/ovenIcon"
+        app:layout_constraintStart_toStartOf="@+id/ovenIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ovenIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

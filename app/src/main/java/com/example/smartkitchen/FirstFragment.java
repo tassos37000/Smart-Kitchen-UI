@@ -1,5 +1,6 @@
 package com.example.smartkitchen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.smartkitchen.databinding.FragmentFirstBinding;
 
 public class FirstFragment extends Fragment {
-
+    int position = 0;
     private FragmentFirstBinding binding;
 
     @Override
@@ -29,11 +30,17 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+
+        if(getArguments() != null){
+            position = getArguments().getInt("current_position");
+        }
+
+        binding.ovenOnOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+                Intent intent = new Intent(getActivity(), ProgramsActivity.class);
+                intent.putExtra("current_position", position);
+                startActivity(intent);
             }
         });
     }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,8 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ProgramsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private SharedPreferences sharedPreferences;
-    String[] countryNames={"Light","Defrost Plus","Fan Forced","Fan Bake","Bake","Pastry Plus","Fan Grill","Grill","Pyrolytic Self-Clean"};
-    int[] flags = {R.drawable.light, R.drawable.defrost_plus, R.drawable.fan_forced, R.drawable.fan_bake, R.drawable.bake, R.drawable.pastry_plus, R.drawable.fan_grill, R.drawable.grill, R.drawable.pyrolytic};
+    String[] programNames ={"Light","Defrost Plus","Fan Forced","Fan Bake","Bake","Pastry Plus","Fan Grill","Grill","Pyrolytic Self-Clean"};
+    int[] icons = {R.drawable.light, R.drawable.defrost_plus, R.drawable.fan_forced, R.drawable.fan_bake, R.drawable.bake, R.drawable.pastry_plus, R.drawable.fan_grill, R.drawable.grill, R.drawable.pyrolytic};
+
+    int spinnerPosition;
+    int counter = 0;
+    CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,58 +32,85 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Spinner spinner = findViewById(R.id.programSelector);
-        spinner.setOnItemSelectedListener(this);
-
-        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(),flags,countryNames);
+        customAdapter = new CustomAdapter(getApplicationContext(), icons, programNames);
         spinner.setAdapter(customAdapter);
 
-        int spinnerPosition = customAdapter.sharedPreferences.getInt("pos", -1);
+        Bundle extras = getIntent().getExtras();
 
-        if (spinnerPosition != -1) {
-            spinner.setSelection(spinnerPosition);
-        }
+        spinner.setSelection(sharedPreferences.getInt("pos", -1));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.e("counter before if", String.valueOf(counter));
+                if (extras != null && counter == 0) {
+                    spinnerPosition = extras.getInt("current_position");
+                    spinner.setSelection(spinnerPosition);
+                    Log.e("spinner position from extras", String.valueOf(spinnerPosition));
+
+                    counter = 1;
+                }
+                else{
+                    Log.e("Custom Adapter spinner Position", String.valueOf(customAdapter.sharedPreferences.getInt("pos", -1)));
+                    spinnerPosition = customAdapter.sharedPreferences.getInt("pos", -1);
+                }
+
+                spinner.setSelection(spinnerPosition);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putInt("pos", spinnerPosition);
+//                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
         ImageButton backButton = findViewById(R.id.backButton);
 
         backButton.setOnClickListener(view -> {
             Intent intent = new Intent(ProgramsActivity.this, MainScreenActivity.class);
+            intent.putExtra("current_position", spinnerPosition);
+            intent.putExtra("backButton", true);
             startActivity(intent);
         });
 
         TextView programDesc = findViewById(R.id.programsDesc);
         programDesc.setMovementMethod(new ScrollingMovementMethod());
 
-        TextView programText = findViewById(R.id.textTemp);
+        TextView tempText = findViewById(R.id.textTemp);
 
         String temp = sharedPreferences.getString("temp", "100");
-        programText.setText(temp);
+        tempText.setText(temp);
 
         Button minusButton = findViewById(R.id.minusTemp);
         Button plusButton = findViewById(R.id.plusTemp);
 
         minusButton.setOnClickListener(view -> {
-            String currentTemp = programText.getText().toString();
+            String currentTemp = tempText.getText().toString();
             if(currentTemp.equals("50")){
-                programText.setText("280");
+                tempText.setText("280");
             }
             else{
-                programText.setText(String.valueOf(Integer.parseInt(currentTemp)-10));
+                tempText.setText(String.valueOf(Integer.parseInt(currentTemp)-10));
             }
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("temp", programText.getText().toString());
+            editor.putString("temp", tempText.getText().toString());
             editor.apply();
         });
 
         plusButton.setOnClickListener(view -> {
-            String currentTemp = programText.getText().toString();
+            String currentTemp = tempText.getText().toString();
             if(currentTemp.equals("280")){
-                programText.setText("50");
+                tempText.setText("50");
             }
             else{
-                programText.setText(String.valueOf(Integer.parseInt(currentTemp)+10));
+                tempText.setText(String.valueOf(Integer.parseInt(currentTemp)+10));
             }
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("temp", programText.getText().toString());
+            editor.putString("temp", tempText.getText().toString());
             editor.apply();
         });
 
@@ -120,7 +152,27 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 
+        Button selectedProgram = findViewById(R.id.buttonSelecProg);
+        selectedProgram.setOnClickListener(view ->{
+            Intent intent = new Intent(ProgramsActivity.this, MainScreenActivity.class);
+            intent.putExtra("progSel", true);
+            intent.putExtra("temperature", tempText.getText().toString());
+            intent.putExtra("program-text", programNames[customAdapter.sharedPreferences.getInt("pos", -1)]);
+            intent.putExtra("program-icon", icons[customAdapter.sharedPreferences.getInt("pos", -1)]);
+            intent.putExtra("position", spinnerPosition);
+//            Log.e("Program Activity position", String.valueOf(spinnerPosition));
+            intent.putExtra("timer-hour", timerHour.getValue());
+            intent.putExtra("timer-minutes", timerMinutes.getValue());
 
+//            Log.e("temperature", tempText.getText().toString());
+//            Log.e("spinner position", String.valueOf(spinnerPosition));
+//            Log.e("program with spinnerPosition", programNames[spinnerPosition]);
+//            Log.e("program with Custom Adapter", programNames[customAdapter.sharedPreferences.getInt("pos", -1)]);
+//            Log.e("hour", String.valueOf(timerHour.getValue()));
+//            Log.e("minutes", String.valueOf(timerMinutes.getValue()));
+
+            startActivity(intent);
+        });
 
     }
 
