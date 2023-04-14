@@ -46,9 +46,18 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for ProgramActivity -->
-    <string name="program_description">
-        LIGHT: Turns on the oven light.\nDEFROST PLUS: Defrost properly frozen food.\nFAN FORCED: Turns on the fan. You can cook different foods at the same time one or more positions and provides even heat distribution.\nFAN BAKE: Turns on the fan and heating elements. This function is ideal for bakery such as bread, pizza and focaccia.\nBAKE: Turns on top and bottom heating elements. This function is ideal red meats, roast beef and leg of lamb. \nPASTRY PLUS: Turns on the bottom heating element with the fan. This function is ideal for fruit flans, tarts, quiches and pastries. \nFAN GRILL: Turns on the top heating element with the fan. This function is ideal for cooking thick food items, whole pieces such as roast pork, poultry, etc. \nGRILL: Turns on the top heating element. This function is ideal for grills, kebabs and gratin dishes. White meats should be put at a distance from the grill.\nPYROLYTIC SELF-CLEAN: Cleans the oven.
-    </string>
+    <string-array name="program_description">
+        <item name="program_light">LIGHT: Turns on the oven light.</item>
+        <item name="program_defrost_plus">DEFROST PLUS: Defrost properly frozen food.</item>
+        <item name="program_fan_forced">FAN FORCED: Turns on the fan. You can cook different foods at the same time one or more positions and provides even heat distribution.</item>
+        <item name="program_fan_bake">FAN BAKE: Turns on the fan and heating elements. This function is ideal for bakery such as bread, pizza and focaccia.</item>
+        <item name="program_bake">BAKE: Turns on top and bottom heating elements. This function is ideal red meats, roast beef and leg of lamb.</item>
+        <item name="program_pastry_plus">PASTRY PLUS: Turns on the bottom heating element with the fan. This function is ideal for fruit flans, tarts, quiches and pastries.</item>
+        <item name="program_fan_grill">FAN GRILL: Turns on the top heating element with the fan. This function is ideal for cooking thick food items, whole pieces such as roast pork, poultry, etc.</item>
+        <item name="program_grill">GRILL: Turns on the top heating element. This function is ideal for grills, kebabs and gratin dishes. White meats should be put at a distance from the grill.</item>
+        <item name="program_pyrolytic">PYROLYTIC SELF-CLEAN: Cleans the oven.</item>
+    </string-array>
+
     <string name="okButton">OK</string>
     <string name="minTempText">150</string>
     <string name="plus">+</string>

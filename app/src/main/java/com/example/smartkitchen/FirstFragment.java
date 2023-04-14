@@ -40,7 +40,7 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ProgramsActivity.class);
                 intent.putExtra("current_position", position);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }

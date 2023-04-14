@@ -1,22 +1,26 @@
 package com.example.smartkitchen;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainScreenActivity extends AppCompatActivity {
-    private AppBarConfiguration appBarConfiguration;
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 bundle.putString("temperature", extras.getString("temperature"));
                 bundle.putString("program-text", extras.getString("program-text"));
                 bundle.putInt("program-icon", extras.getInt("program-icon"));
-                bundle.putInt("timer-hour", extras.getInt("timer-hour"));
+                bundle.putLong("timer-hour", extras.getLong("timer-hour"));
                 bundle.putInt("timer-minutes", extras.getInt("timer-minutes"));
 
 //                Log.e("Main screen temperature", extras.getString("temperature"));
@@ -63,7 +67,43 @@ public class MainScreenActivity extends AppCompatActivity {
 
         settingsButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainScreenActivity.this, SettingsActivity.class);
-            startActivity(intent);
+            if (extras != null) {
+                boolean ovenSetUp = extras.getBoolean("progSel");
+                if(ovenSetUp){
+                    intent.putExtra("selprog", true);
+                    intent.putExtra("position", extras.getInt("position"));
+                    intent.putExtra("temperature", extras.getString("temperature"));
+                    intent.putExtra("program-text", extras.getString("program-text"));
+                    intent.putExtra("program-icon", extras.getInt("program-icon"));
+                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
+                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+                }
+                else{
+                    intent.putExtra("selprog", false);
+                }
+            }
+            startActivityForResult(intent, 10);
+
         });
+
+        NotificationManager mNotificationManager;
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+        Intent ii = new Intent(getApplicationContext(), MainScreenActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.thermometer);
+        mBuilder.setContentTitle("Oven Preheated");
+        mBuilder.setContentText("The oven is preheated");
+
+        mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        String channelId = "Your_channel_id";
+        NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_HIGH);
+        mNotificationManager.createNotificationChannel(channel);
+        mBuilder.setChannelId(channelId);
+        //enable-disable notification
+//        mNotificationManager.notify(0, mBuilder.build());
     }
 }

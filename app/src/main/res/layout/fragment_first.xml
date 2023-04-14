@@ -9,8 +9,8 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ovenOnOff"
         android:layout_width="206dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/rounded_button"
         android:text="@string/turnOn"
         android:textAllCaps="false"
@@ -23,8 +23,8 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="0dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
         android:contentDescription="@string/ovenIcon"
         android:src="@drawable/oven_off"

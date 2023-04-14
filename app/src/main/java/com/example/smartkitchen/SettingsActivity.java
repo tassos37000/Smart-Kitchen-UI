@@ -1,5 +1,6 @@
 package com.example.smartkitchen;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,8 +34,24 @@ public class SettingsActivity extends AppCompatActivity{
         ImageButton backButton = findViewById(R.id.backButton);
 
         backButton.setOnClickListener(view -> {
-            Intent intent = new Intent(SettingsActivity.this, MainScreenActivity.class);
-            startActivity(intent);
+            try {
+                Intent intent = new Intent(SettingsActivity.this, Class.forName(getCallingActivity().getClassName()));
+                Bundle extras = getIntent().getExtras();
+                if(extras != null){
+                    if(extras.getBoolean("selprog")){
+                        intent.putExtra("progSel", extras.getBoolean("selprog"));
+                        intent.putExtra("position", extras.getInt("position"));
+                        intent.putExtra("temperature", extras.getString("temperature"));
+                        intent.putExtra("program-text", extras.getString("program-text"));
+                        intent.putExtra("program-icon", extras.getInt("program-icon"));
+                        intent.putExtra("timer-hour", extras.getLong("timer-hour"));
+                        intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+                    }
+                }
+                startActivity(intent);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 

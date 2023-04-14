@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/program_icon"
-        android:layout_width="91dp"
-        android:layout_height="67dp"
-        android:layout_marginEnd="25dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="15dp"
         android:contentDescription="@string/program_icon"
         app:layout_constraintEnd_toStartOf="@+id/temperatureText"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,42 +20,63 @@
         android:id="@+id/temperatureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="100dp"
         android:text=""
-        android:textSize="40sp"
+        android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/program_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/program_icon" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/changeSettingsButton"
-        android:layout_width="272dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/change_settings"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="@+id/temperatureText"
         app:layout_constraintStart_toStartOf="@+id/program_icon"
         app:layout_constraintTop_toBottomOf="@+id/program_icon" />
 
     <ImageView
         android:id="@+id/ovenIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="15dp"
         android:contentDescription="@string/oven_icon"
         app:layout_constraintEnd_toEndOf="@+id/changeSettingsButton"
         app:layout_constraintStart_toStartOf="@+id/changeSettingsButton"
         app:layout_constraintTop_toBottomOf="@+id/changeSettingsButton"
         tools:src="@tools:sample/avatars" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/turnOffButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_button"
         android:text="@string/turn_off"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="@+id/ovenIcon"
         app:layout_constraintStart_toStartOf="@+id/ovenIcon"
         app:layout_constraintTop_toBottomOf="@+id/ovenIcon" />
+
+    <TextView
+        android:id="@+id/timerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textColor="@color/companyBlue"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ovenIcon"
+        app:layout_constraintEnd_toStartOf="@+id/ovenIcon"
+        app:layout_constraintTop_toTopOf="@+id/ovenIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
