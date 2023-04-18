@@ -10,15 +10,14 @@
         android:layout_height="50dp"
         android:padding="5dp"
         android:src="@drawable/ic_launcher_background"
-        android:contentDescription="program icon" />
+        android:contentDescription="@string/program_icon" />
 
     <TextView
         android:id="@+id/programText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Demo"
-        android:textColor="#000"
+        android:textColor="@color/companyBlue"
         android:textSize="24sp"
         android:textStyle="bold" />
 </LinearLayout>

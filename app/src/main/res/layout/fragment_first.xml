@@ -8,10 +8,14 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ovenOnOff"
-        android:layout_width="206dp"
+        android:layout_width="wrap_content"
+        android:paddingRight="14dp"
+        android:paddingLeft="14dp"
+        android:paddingBottom="4dp"
         android:layout_height="75dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/companyBlue"
         android:text="@string/turnOn"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"

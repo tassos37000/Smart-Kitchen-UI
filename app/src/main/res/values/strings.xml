@@ -1,35 +1,35 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_main_screen">Main_Screen</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_main_screen" translatable="false">Main_Screen</string>
 
     <!-- Strings used for MainScreenActivity -->
-    <string name="number0">0</string>
-    <string name="number1">1</string>
-    <string name="number2">2</string>
-    <string name="number3">3</string>
-    <string name="number4">4</string>
-    <string name="number5">5</string>
-    <string name="number6">6</string>
-    <string name="number7">7</string>
-    <string name="number8">8</string>
-    <string name="number9">9</string>
-    <string name="noNumber"> </string>
+    <string name="number0" translatable="false">0</string>
+    <string name="number1" translatable="false">1</string>
+    <string name="number2" translatable="false">2</string>
+    <string name="number3" translatable="false">3</string>
+    <string name="number4" translatable="false">4</string>
+    <string name="number5" translatable="false">5</string>
+    <string name="number6" translatable="false">6</string>
+    <string name="number7" translatable="false">7</string>
+    <string name="number8" translatable="false">8</string>
+    <string name="number9" translatable="false">9</string>
+    <string name="noNumber" translatable="false"> </string>
     <string name="turnOn">Turn on</string>
     <string name="turnOff">Turn off</string>
-    <string name="settings">settings</string>
-    <string name="settingsIcon">settings icon</string>
-    <string name="techSupport">tech support</string>
-    <string name="techSupportIcon">tech support icon</string>
-    <string name="ovenIcon">oven icon</string>
+    <string name="settings" translatable="false">settings</string>
+    <string name="settingsIcon" translatable="false">settings icon</string>
+    <string name="techSupport" translatable="false">tech support</string>
+    <string name="techSupportIcon" translatable="false">tech support icon</string>
+    <string name="ovenIcon" translatable="false">oven icon</string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for SettingsActivity -->
@@ -40,14 +40,36 @@
     <string name="voiceCommands">Voice Commands</string>
     <string name="voiceResponses">Voice Responses</string>
     <string name="notificationsSwitch">Notifications</string>
-    <string name="desc_image_voice_commands">image of voice commands</string>
-    <string name="desc_image_voice_response">image of voice response</string>
-    <string name="desc_image_notifications">image of notifications</string>
+    <string name="desc_image_voice_commands" translatable="false">image of voice commands</string>
+    <string name="desc_image_voice_response" translatable="false">image of voice response</string>
+    <string name="desc_image_notifications" translatable="false">image of notifications</string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for ProgramActivity -->
+    <string-array name="program_names">
+        <item name="program_name1">@string/light</item>
+        <item name="program_name1">@string/defrostPlus</item>
+        <item name="program_name1">@string/fanForced</item>
+        <item name="program_name1">@string/fanBake</item>
+        <item name="program_name1">@string/bake</item>
+        <item name="program_name1">@string/pastryPlus</item>
+        <item name="program_name1">@string/fanGrill</item>
+        <item name="program_name1">@string/grill</item>
+        <item name="program_name1">@string/pyrolytic</item>
+    </string-array>
+
+    <string name="light">Light</string>
+    <string name="defrostPlus">Defrost Plus</string>
+    <string name="fanForced">Fan Forced</string>
+    <string name="fanBake">Fan Bake</string>
+    <string name="bake">Bake</string>
+    <string name="pastryPlus">Pastry Plus</string>
+    <string name="fanGrill">Fan Grill</string>
+    <string name="grill">Grill</string>
+    <string name="pyrolytic">Pyrolytic Self-Clean</string>
+
     <string-array name="program_description">
-        <item name="program_light">LIGHT: Turns on the oven light.</item>
+        <item name="program_desc1">@string/program_desc_light</item>
         <item name="program_defrost_plus">DEFROST PLUS: Defrost properly frozen food.</item>
         <item name="program_fan_forced">FAN FORCED: Turns on the fan. You can cook different foods at the same time one or more positions and provides even heat distribution.</item>
         <item name="program_fan_bake">FAN BAKE: Turns on the fan and heating elements. This function is ideal for bakery such as bread, pizza and focaccia.</item>
@@ -58,16 +80,23 @@
         <item name="program_pyrolytic">PYROLYTIC SELF-CLEAN: Cleans the oven.</item>
     </string-array>
 
+    <string name="program_desc_light">LIGHT: Turns on the oven light.</string>
+<!--    TODO make the program desc separate strings-->
+
     <string name="okButton">OK</string>
-    <string name="minTempText">150</string>
-    <string name="plus">+</string>
-    <string name="minus">-</string>
+    <string name="minTempText" translatable="false">150</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
     <string name="temperature">Temperature</string>
-    <string name="title_select_prog"><![CDATA[Select a program ->]]></string>
+    <string name="title_select_prog">Select a program</string>
     <string name="turn_off">Turn off</string>
     <string name="change_settings">Change Settings</string>
-    <string name="program_icon">program icon</string>
-    <string name="oven_icon">oven icon</string>
+    <string name="program_icon" translatable="false">program icon</string>
+    <string name="oven_icon" translatable="false">oven icon</string>
+    <string name="hour">Hour</string>
+    <string name="minutes">Minutes</string>
+    <string name="set_timer">Set timer</string>
+    <string name="arrow" translatable="false"><![CDATA[->]]></string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
 </resources>

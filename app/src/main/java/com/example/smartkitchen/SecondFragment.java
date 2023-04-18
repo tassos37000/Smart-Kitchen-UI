@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import com.example.smartkitchen.databinding.FragmentSecondBinding;
@@ -126,6 +128,11 @@ public class SecondFragment extends Fragment {
                 mBuilder.setChannelId(channelId);
                 //enable-disable notification
                 mNotificationManager.notify(0, mBuilder.build());
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FirstFragment());
+                fragmentTransaction.commit();
             }
         }.start();
     }

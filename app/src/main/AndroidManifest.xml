@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:configChanges="uiMode"
             android:name=".SettingsActivity"
             android:exported="true"
             android:label="SettingsActivity"

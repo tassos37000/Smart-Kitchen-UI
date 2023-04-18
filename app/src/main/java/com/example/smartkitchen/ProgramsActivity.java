@@ -22,7 +22,7 @@ import java.lang.*;
 
 public class ProgramsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private SharedPreferences sharedPreferences;
-    String[] programNames ={"Light","Defrost Plus","Fan Forced","Fan Bake","Bake","Pastry Plus","Fan Grill","Grill","Pyrolytic Self-Clean"};
+
     int[] icons = {R.drawable.light, R.drawable.defrost_plus, R.drawable.fan_forced, R.drawable.fan_bake, R.drawable.bake, R.drawable.pastry_plus, R.drawable.fan_grill, R.drawable.grill, R.drawable.pyrolytic};
 
     int spinnerPosition;
@@ -31,6 +31,7 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String[] programNames = getResources().getStringArray(R.array.program_names);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_program);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

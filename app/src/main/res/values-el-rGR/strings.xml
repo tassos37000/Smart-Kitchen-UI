@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="turnOn">Ενεργοποίηση</string>
+    <string name="turnOff">Απενεργοποίηση</string>
+    <string name="languageSwitchEnglish">Αγγλικά</string>
+    <string name="languageSwitchGreek">Ελληνικά</string>
+    <string name="themeSwitchLight">Ανοιχτό</string>
+    <string name="themeSwitchDark">Σκούρο</string>
+    <string name="voiceCommands">Φωνητικές Εντολές</string>
+    <string name="voiceResponses">Φωνητικές Απαντήσεις</string>
+    <string name="notificationsSwitch">Ειδοποίησεις</string>
+    <string name="okButton">ΟΚ</string>
+    <string name="temperature">Θερμοκρασία</string>
+    <string name="turn_off">Απενεργοποίηση</string>
+    <string name="change_settings">Αλλαγή ρυθμίσεων</string>
+    <string name="title_select_prog">Επιλογή προγράμματος</string>
+    <string name="hour">Ώρες</string>
+    <string name="minutes">Λεπτά</string>
+    <string name="set_timer">Ρύθμιση χρονόμετρου</string>
+    <string name="light">Φως</string>
+    <string name="program_desc_light">Φως: Ανάβει τη λάμπα του φούρνου.</string>
+    <string name="defrostPlus">Απόψυξη Plus</string>
+    <string name="fanForced">Αέρας</string>
+    <string name="fanBake">Αέρας + Πάνω-Κάτω Αντιστάσεις</string>
+    <string name="bake">Πάνω-Κάτω Αντιστάσεις</string>
+    <string name="pastryPlus">Αέρας + Κάτω Αντίσταση</string>
+    <string name="fanGrill">Αέρας + Γκριλ</string>
+    <string name="grill">Γκριλ</string>
+    <string name="pyrolytic">Πυρόληση</string>
+</resources>
