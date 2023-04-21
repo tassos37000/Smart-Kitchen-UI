@@ -99,4 +99,9 @@
     <string name="arrow" translatable="false"><![CDATA[->]]></string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
+    <!-- Strings used for ProgramActivity -->
+    <string name="textSupport">If you have any problems do not afraid to contact us at: 0800 242 437
+        \n\nFor more information go to product page from the buttons bellow:</string>
+    <string name="stove">Stove</string>
+    <string name="oven">Oven</string>
 </resources>

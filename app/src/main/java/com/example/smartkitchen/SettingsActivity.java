@@ -42,6 +42,18 @@ public class SettingsActivity extends AppCompatActivity{
         SwitchCompat languageSwitch = findViewById(R.id.languageSwitch);
 //        Log.e("shared pref", String.valueOf(sharedPreferences.getBoolean("languageSwitch", false)));
         languageSwitch.setChecked(sharedPreferences.getBoolean("languageSwitch", false));
+
+        if (languageSwitch.isChecked()) {
+            Locale locale = new Locale("el");
+            Configuration config = new Configuration();
+            config.setLocale(locale);
+            getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        } else {
+            Locale locale = new Locale("en");
+            Configuration config = new Configuration();
+            config.setLocale(locale);
+            getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        }
         languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             String language;
             if (isChecked) {

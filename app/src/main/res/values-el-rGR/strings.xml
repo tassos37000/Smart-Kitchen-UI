@@ -28,4 +28,8 @@
     <string name="fanGrill">Αέρας + Γκριλ</string>
     <string name="grill">Γκριλ</string>
     <string name="pyrolytic">Πυρόληση</string>
+    <string name="textSupport">Εάν αντιμετοπίζετε κάποιο πρόβλημα μη δυστάσετε να επικοινωνήσετε μαζί μας στο τηλέφωνο: 0800 242 437
+        \n\nΓια περισσότερες πληροφορίες συμβουλευτείτε τις σελλίδες των προϊόντων από τα παρακάτω κουμπιά:</string>
+    <string name="stove">Φούρνος</string>
+    <string name="oven">Εστίες</string>
 </resources>

@@ -47,16 +47,19 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                Log.e("counter before if", String.valueOf(counter));
+                Log.e("counter before if", String.valueOf(counter));
+
                 if (extras != null && counter == 0) {
                     spinnerPosition = extras.getInt("current_position");
+                    if(extras.getBoolean("progSel"))
+                        spinnerPosition = extras.getInt("position");
                     spinner.setSelection(spinnerPosition);
 //                    Log.e("spinner position from extras", String.valueOf(spinnerPosition));
 
                     counter = 1;
                 }
                 else{
-//                    Log.e("Custom Adapter spinner Position", String.valueOf(customAdapter.sharedPreferences.getInt("pos", -1)));
+                    Log.e("Custom Adapter spinner Position", String.valueOf(customAdapter.sharedPreferences.getInt("pos", -1)));
                     spinnerPosition = customAdapter.sharedPreferences.getInt("pos", -1);
                 }
 
@@ -77,8 +80,9 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
         ImageButton backButton = findViewById(R.id.backButton);
 
         backButton.setOnClickListener(view -> {
-            try {
+//            try {
                 if (extras != null){
+                    Log.e("second fragment in back button", String.valueOf(extras.getBoolean("second_fragment")));
 //                    Log.e("program set", String.valueOf(extras.getBoolean("second_fragment")));
                     if(extras.getBoolean("second_fragment")){
                         Intent intent = new Intent(ProgramsActivity.this, MainScreenActivity.class);
@@ -88,28 +92,64 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
                         intent.putExtra("program-icon", icons[customAdapter.sharedPreferences.getInt("pos", -1)]);
                         intent.putExtra("position", spinnerPosition);
                         long timerEnd = extras.getLong("timer-hour");
-                        Log.e("Prog Act time", String.valueOf((timerEnd / (1000 * 60) % 60 )));
+//                        Log.e("Prog Act time", String.valueOf((timerEnd / (1000 * 60) % 60 )));
                         intent.putExtra("timer-hour", timerEnd);
                         startActivity(intent);
 
                     }
                     else{
 //                        Log.e("back", "it continues");
-                        Intent intent = new Intent(ProgramsActivity.this, Class.forName(getCallingActivity().getClassName()));
+                        Intent intent = new Intent(ProgramsActivity.this, MainScreenActivity.class);
                         intent.putExtra("current_position", spinnerPosition);
                         intent.putExtra("backButton", true);
                         startActivity(intent);
                     }
                 }
+                else{
+                    Log.e("extras is null", "back");
+                }
 
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+//            } catch (ClassNotFoundException e) {
+//                throw new RuntimeException(e);
+//            }
 
         });
 
-//        TextView programDesc = findViewById(R.id.programsDesc);
-//        programDesc.setMovementMethod(new ScrollingMovementMethod());
+        ImageButton supportButton = findViewById(R.id.techSupport);
+        supportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (extras != null) {
+//                    Log.e("program set", String.valueOf(extras.getBoolean("second_fragment")));
+                    Log.e("second fragment in support button", String.valueOf(extras.getBoolean("second_fragment")));
+                    if (extras.getBoolean("second_fragment")) {
+                        Intent intent = new Intent(ProgramsActivity.this, SupportActivity.class);
+                        intent.putExtra("progSel", true);
+                        intent.putExtra("temperature", tempText.getText().toString());
+                        intent.putExtra("program-text", programNames[customAdapter.sharedPreferences.getInt("pos", -1)]);
+                        intent.putExtra("program-icon", icons[customAdapter.sharedPreferences.getInt("pos", -1)]);
+                        intent.putExtra("position", spinnerPosition);
+                        long timerEnd = extras.getLong("timer-hour");
+//                        Log.e("Prog Act time", String.valueOf((timerEnd / (1000 * 60) % 60 )));
+                        intent.putExtra("timer-hour", timerEnd);
+                        intent.putExtra("selprog", true);
+                        startActivityForResult(intent,5);
+
+                    } else {
+//                        Log.e("back", "it continues");
+                        Intent intent = new Intent(ProgramsActivity.this, SupportActivity.class);
+                        intent.putExtra("current_position", spinnerPosition);
+                        intent.putExtra("supportButton", true);
+                        startActivityForResult(intent, 5);
+                    }
+                }
+                else{
+                    Log.e("extras is null", "support");
+                }
+
+            }
+        });
 
 
 

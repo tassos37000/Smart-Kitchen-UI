@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -35,6 +36,12 @@
             android:name=".ProgramsActivity"
             android:exported="true"
             android:label="ProgramsActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.MyApplication.NoActionBar" />
+        <activity
+            android:name=".SupportActivity"
+            android:exported="true"
+            android:label="TechSupportActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.MyApplication.NoActionBar" />
     </application>

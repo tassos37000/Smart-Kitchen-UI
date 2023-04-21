@@ -25,9 +25,34 @@ public class MainScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        Bundle extras = getIntent().getExtras();
         ImageButton settingsButton = findViewById(R.id.settings);
 
-        Bundle extras = getIntent().getExtras();
+        ImageButton supportButton = findViewById(R.id.techSupport);
+        supportButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainScreenActivity.this, SupportActivity.class);
+            if (extras != null) {
+                boolean ovenSetUp = extras.getBoolean("progSel");
+                Log.e("oven setup in main", String.valueOf(ovenSetUp));
+                if(ovenSetUp){
+                    Log.e("send data to support", "true");
+                    intent.putExtra("selprog", true);
+                    intent.putExtra("position", extras.getInt("position"));
+                    intent.putExtra("temperature", extras.getString("temperature"));
+                    intent.putExtra("program-text", extras.getString("program-text"));
+                    intent.putExtra("program-icon", extras.getInt("program-icon"));
+                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
+                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+                }
+                else{
+                    intent.putExtra("selprog", false);
+                    intent.putExtra("supportButton", false);
+                }
+            }
+            startActivityForResult(intent, 5);
+        });
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FirstFragment());
