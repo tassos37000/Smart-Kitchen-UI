@@ -96,21 +96,21 @@ public class SettingsActivity extends AppCompatActivity{
         });
 
         backButton.setOnClickListener(view -> {
-                Intent intent = new Intent(SettingsActivity.this, MainScreenActivity.class);
-                Bundle extras = getIntent().getExtras();
-                if(extras != null){
-                    if(extras.getBoolean("selprog")){
-                        intent.putExtra("progSel", extras.getBoolean("selprog"));
-                        intent.putExtra("position", extras.getInt("position"));
-                        intent.putExtra("temperature", extras.getString("temperature"));
-                        intent.putExtra("program-text", extras.getString("program-text"));
-                        intent.putExtra("program-icon", extras.getInt("program-icon"));
-                        intent.putExtra("timer-hour", extras.getLong("timer-hour"));
-                        intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
-                    }
+            Intent intent = new Intent(SettingsActivity.this, MainScreenActivity.class);
+            Bundle extras = getIntent().getExtras();
+            if(extras != null){
+                if(extras.getBoolean("selprog")){
+                    intent.putExtra("progSel", extras.getBoolean("selprog"));
+                    intent.putExtra("position", extras.getInt("position"));
+                    intent.putExtra("temperature", extras.getString("temperature"));
+                    intent.putExtra("program-text", extras.getString("program-text"));
+                    intent.putExtra("program-icon", extras.getInt("program-icon"));
+                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
+                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
                 }
-                startActivity(intent);
-                this.finish();
+            }
+            startActivity(intent);
+            this.finish();
         });
     }
 

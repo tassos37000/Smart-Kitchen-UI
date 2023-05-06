@@ -37,7 +37,7 @@
         android:layout_marginTop="32dp"
         android:adjustViewBounds="true"
         android:backgroundTint="?android:backgroundTint"
-        android:contentDescription="@string/settingsIcon"
+        android:contentDescription="@string/back_icon"
         android:scaleType="centerInside"
         android:src="@drawable/back_arrow"
         android:text="@string/settings"

@@ -44,6 +44,12 @@
             android:label="TechSupportActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.MyApplication.NoActionBar" />
+        <activity
+            android:name=".KnobActivity"
+            android:exported="true"
+            android:label="TechSupportActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.MyApplication.NoActionBar" />
     </application>
 
 </manifest>

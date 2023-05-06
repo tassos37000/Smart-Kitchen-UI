@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -16,19 +17,37 @@ import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 
+import java.util.Objects;
+
 public class MainScreenActivity extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         Bundle extras = getIntent().getExtras();
-        ImageButton settingsButton = findViewById(R.id.settings);
 
+        ImageButton settingsButton = findViewById(R.id.settings);
         ImageButton supportButton = findViewById(R.id.techSupport);
+        Button topLeft = findViewById(R.id.topLeft);
+        Button topRight = findViewById(R.id.topRight);
+        Button bottomLeft = findViewById(R.id.bottomLeft);
+        Button bottomRight = findViewById(R.id.bottomRight);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        updateButton(topLeft, sharedPreferences.getString("topLeft", ""));
+        updateButton(topRight, sharedPreferences.getString("topRight", ""));
+        updateButton(bottomLeft, sharedPreferences.getString("bottomLeft", ""));
+        updateButton(bottomRight, sharedPreferences.getString("bottomRight", ""));
+
         supportButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainScreenActivity.this, SupportActivity.class);
             if (extras != null) {
@@ -52,11 +71,16 @@ public class MainScreenActivity extends AppCompatActivity {
             startActivityForResult(intent, 5);
         });
 
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FirstFragment());
         if (extras != null) {
+            Button tempButton = findViewById(extras.getInt("buttonId"));
+            if(extras.getString("stoveValue") != null){
+                Log.e("stove Value Main Act", extras.getString("stoveValue"));
+                updateButton(tempButton, extras.getString("stoveValue"));
+            }
+
             Bundle bundle = new Bundle();
             boolean backFromProgram = extras.getBoolean("backButton");
             boolean ovenSetUp = extras.getBoolean("progSel");
@@ -130,5 +154,63 @@ public class MainScreenActivity extends AppCompatActivity {
         mBuilder.setChannelId(channelId);
         //enable-disable notification
 //        mNotificationManager.notify(0, mBuilder.build());
+
+
+
+        stoveListener(topLeft, extras, R.id.topLeft);
+        stoveListener(topRight, extras, R.id.topRight);
+        stoveListener(bottomLeft, extras, R.id.bottomLeft);
+        stoveListener(bottomRight, extras, R.id.bottomRight);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("topLeft", (String) topLeft.getText());
+        editor.putString("topRight", (String) topRight.getText());
+        editor.putString("bottomLeft", (String) bottomLeft.getText());
+        editor.putString("bottomRight", (String) bottomRight.getText());
+        editor.apply();
+
+    }
+
+    private void stoveListener(Button button, Bundle extras, int buttonId){
+        button.setOnClickListener(view -> {
+            Intent intent = new Intent(MainScreenActivity.this, KnobActivity.class);
+            if (extras != null) {
+                boolean ovenSetUp = extras.getBoolean("progSel");
+                Log.e("oven setup in main", String.valueOf(ovenSetUp));
+                if(ovenSetUp){
+                    Log.e("send data to support", "true");
+                    intent.putExtra("selprog", true);
+                    intent.putExtra("position", extras.getInt("position"));
+                    intent.putExtra("temperature", extras.getString("temperature"));
+                    intent.putExtra("program-text", extras.getString("program-text"));
+                    intent.putExtra("program-icon", extras.getInt("program-icon"));
+                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
+                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+                }
+                else{
+                    intent.putExtra("selprog", false);
+                    intent.putExtra("supportButton", false);
+                }
+            }
+            intent.putExtra("buttonId", buttonId);
+            if(button.getText() != ""){
+                intent.putExtra("buttonValue", Integer.parseInt((String) button.getText()));
+            }
+            else{
+                intent.putExtra("buttonValue", 0);
+            }
+            startActivityForResult(intent, 5);
+        } );
+    }
+
+    private void updateButton(Button button, String value){
+        if(Objects.equals(value, "") || Objects.equals(value, "0")){
+            button.setText("");
+            button.setBackgroundColor(getResources().getColor(R.color.stoveOff));
+        }
+        else{
+            button.setText(value);
+            button.setBackgroundColor(getResources().getColor(R.color.stoveOn));
+        }
     }
 }

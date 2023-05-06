@@ -104,4 +104,5 @@
         \n\nFor more information go to product page from the buttons bellow:</string>
     <string name="stove">Stove</string>
     <string name="oven">Oven</string>
+    <string name="back_icon">back icon</string>
 </resources>
