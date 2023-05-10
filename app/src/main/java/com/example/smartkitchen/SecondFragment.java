@@ -1,5 +1,6 @@
 package com.example.smartkitchen;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -32,6 +33,8 @@ public class SecondFragment extends Fragment {
     private long timeLeftInMillis;
     private FragmentSecondBinding binding;
 
+    public MainScreenActivity activity;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -41,6 +44,12 @@ public class SecondFragment extends Fragment {
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = (MainScreenActivity) activity;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -95,7 +104,16 @@ public class SecondFragment extends Fragment {
 
     private void startTimer(long time) {
 //        timeLeftInMillis = (hours * 60 * 60 + minutes * 60) * 1000;
+        Log.e("Second fragment time in start timer", String.valueOf(time));
         timeLeftInMillis = time;
+
+        if(time < 0){
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FirstFragment());
+            fragmentTransaction.commit();
+            return;
+        }
 
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
@@ -111,16 +129,16 @@ public class SecondFragment extends Fragment {
                 updateCountdownText();
                 NotificationManager mNotificationManager;
 
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getActivity().getApplicationContext(), "notify_001");
-                Intent ii = new Intent(getActivity().getApplicationContext(), MainScreenActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(getActivity().getApplicationContext(), 0, ii, 0);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity, "notify_001");
+                Intent ii = new Intent(activity, MainScreenActivity.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, ii, 0);
 
                 mBuilder.setContentIntent(pendingIntent);
                 mBuilder.setSmallIcon(R.drawable.thermometer);
                 mBuilder.setContentTitle("Timer end");
                 mBuilder.setContentText("The timer has ended");
 
-                mNotificationManager = (NotificationManager) getActivity().getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
 
                 String channelId = "Your_channel_id";
                 NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_HIGH);
@@ -129,7 +147,7 @@ public class SecondFragment extends Fragment {
                 //enable-disable notification
                 mNotificationManager.notify(0, mBuilder.build());
 
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FirstFragment());
                 fragmentTransaction.commit();

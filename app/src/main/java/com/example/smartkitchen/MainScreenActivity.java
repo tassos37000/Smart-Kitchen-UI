@@ -135,23 +135,23 @@ public class MainScreenActivity extends AppCompatActivity {
 
         });
 
-        NotificationManager mNotificationManager;
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "notify_001");
-        Intent ii = new Intent(getApplicationContext(), MainScreenActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
-
-        mBuilder.setContentIntent(pendingIntent);
-        mBuilder.setSmallIcon(R.drawable.thermometer);
-        mBuilder.setContentTitle("Oven Preheated");
-        mBuilder.setContentText("The oven is preheated");
-
-        mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
-        String channelId = "Your_channel_id";
-        NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_HIGH);
-        mNotificationManager.createNotificationChannel(channel);
-        mBuilder.setChannelId(channelId);
+//        NotificationManager mNotificationManager;
+//
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+//        Intent ii = new Intent(getApplicationContext(), MainScreenActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
+//
+//        mBuilder.setContentIntent(pendingIntent);
+//        mBuilder.setSmallIcon(R.drawable.thermometer);
+//        mBuilder.setContentTitle("Oven Preheated");
+//        mBuilder.setContentText("The oven is preheated");
+//
+//        mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        String channelId = "Your_channel_id";
+//        NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_HIGH);
+//        mNotificationManager.createNotificationChannel(channel);
+//        mBuilder.setChannelId(channelId);
         //enable-disable notification
 //        mNotificationManager.notify(0, mBuilder.build());
 
@@ -169,6 +169,11 @@ public class MainScreenActivity extends AppCompatActivity {
         editor.putString("bottomRight", (String) bottomRight.getText());
         editor.apply();
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
     }
 
     private void stoveListener(Button button, Bundle extras, int buttonId){
@@ -193,6 +198,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 }
             }
             intent.putExtra("buttonId", buttonId);
+            intent.putExtra("mainAct", true);
             if(button.getText() != ""){
                 intent.putExtra("buttonValue", Integer.parseInt((String) button.getText()));
             }

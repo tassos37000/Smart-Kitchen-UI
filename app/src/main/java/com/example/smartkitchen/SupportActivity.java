@@ -44,6 +44,7 @@ public class SupportActivity extends AppCompatActivity {
 //                        Bundle bundle = new Bundle();
                         boolean backFromProgram = extras.getBoolean("supportButton");
                         boolean ovenSetUp = extras.getBoolean("selprog");
+                        boolean knobSelection = extras.getBoolean("knobActivity");
                         Log.e("oven setup in support", String.valueOf(ovenSetUp));
                         Log.e("back from program", String.valueOf(backFromProgram));
                         if(backFromProgram){
@@ -58,6 +59,7 @@ public class SupportActivity extends AppCompatActivity {
                             intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
                             intent.putExtra("progSel", true);
                             intent.putExtra("second_fragment", true);
+                            intent.putExtra("selprog", true);
                         }
                     }
                     else{
