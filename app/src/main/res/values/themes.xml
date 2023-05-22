@@ -5,7 +5,7 @@
 
         <item name="colorOnSecondary">#FFFFFF</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">#4CAF50</item>
+        <item name="android:statusBarColor">@color/companyBlue</item>
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:backgroundTint" parent="ImageButton">@color/white</item>
         <item name="voice_commands_picture">@drawable/microphone</item>

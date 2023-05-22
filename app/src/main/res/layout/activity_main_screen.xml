@@ -109,4 +109,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="395dp"
+        android:layout_height="380dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="-14dp"
+        app:layout_constraintStart_toStartOf="@+id/topLeft"
+        app:layout_constraintTop_toTopOf="@+id/topLeft"
+        app:srcCompat="@drawable/rectangle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
