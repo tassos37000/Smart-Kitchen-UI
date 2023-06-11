@@ -8,9 +8,14 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
@@ -19,6 +24,8 @@ import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity{
     private SharedPreferences sharedPreferences;
+    private int countLanguage = 0;
+    private int countTheme = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,60 +46,78 @@ public class SettingsActivity extends AppCompatActivity{
         ImageView notificationImage = findViewById(R.id.imageNotification);
         changeSaveSwitchImage(notificationSwitch, notificationImage, "NotificationSS", R.drawable.bell, R.drawable.mute_bell, R.drawable.bell_white, R.drawable.mute_bell_white);
 
-        SwitchCompat languageSwitch = findViewById(R.id.languageSwitch);
-//        Log.e("shared pref", String.valueOf(sharedPreferences.getBoolean("languageSwitch", false)));
-        languageSwitch.setChecked(sharedPreferences.getBoolean("languageSwitch", false));
+        Spinner languageSpinner = findViewById(R.id.language_spinner);
+        String[] languageNames = getResources().getStringArray(R.array.language_names);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.settings_spinner_item, languageNames);
+        languageSpinner.setAdapter(spinnerAdapter);
 
-        if (languageSwitch.isChecked()) {
-            Locale locale = new Locale("el");
-            Configuration config = new Configuration();
-            config.setLocale(locale);
-            getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        } else {
-            Locale locale = new Locale("en");
-            Configuration config = new Configuration();
-            config.setLocale(locale);
-            getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        languageSpinner.setSelection(sharedPreferences.getInt("language_pos", 0));
+
+        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("language_pos", position);
+
+                if(String.valueOf(position).equals("0")){
+                    Locale locale = new Locale("en");
+                    Configuration config = new Configuration();
+                    config.setLocale(locale);
+                    getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                    editor.putString("language", "en");
+                }
+                else{
+                    Locale locale = new Locale("el");
+                    Configuration config = new Configuration();
+                    config.setLocale(locale);
+                    getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+                    editor.putString("language", "el");
+                }
+
+                editor.apply();
+                if(countLanguage > 0){
+                    backButton.performClick();
+                }
+                else{
+                    countLanguage++;
+                }
         }
-        languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            String language;
-            if (isChecked) {
-                // Αλλαγή σε Ελληνικά
-                language = "el";
-            } else {
-                // Επιστροφή στα Αγγλικά
-                language = "en";
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
-//            Log.e("language switch", String.valueOf(isChecked));
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("languageSwitch", isChecked);
-            editor.putString("language", language);
-            editor.apply();
-
-            Locale locale = new Locale(language);
-            Configuration config = new Configuration();
-            config.setLocale(locale);
-            getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
-            backButton.performClick();
         });
 
-        SwitchCompat themeSwitch = findViewById(R.id.themeSwitch);
-        themeSwitch.setChecked(sharedPreferences.getBoolean("themeSwitch", false));
+        Spinner themeSpinner = findViewById(R.id.theme_spinner);
+        String[] themeNames = getResources().getStringArray(R.array.theme_names);
+        ArrayAdapter<String> spinnerThemeAdapter = new ArrayAdapter<String>(this, R.layout.settings_spinner_item, themeNames);
+        themeSpinner.setAdapter(spinnerThemeAdapter);
 
-        themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        themeSpinner.setSelection(sharedPreferences.getInt("theme_pos", 0));
+
+        themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                if(String.valueOf(position).equals("0")){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("theme_pos", position);
+                editor.apply();
+                if(countTheme > 0){
+                    backButton.performClick();
+                }
+                else{
+                    countTheme++;
+                }
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("themeSwitch", isChecked);
-            editor.apply();
-
-            backButton.performClick();
+            }
         });
 
         backButton.setOnClickListener(view -> {

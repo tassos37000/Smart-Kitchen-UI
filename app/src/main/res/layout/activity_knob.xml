@@ -50,7 +50,7 @@
         android:layout_height="60dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="@color/companyBlue"
-        android:text="@string/okButton"
+        android:text="@string/turnOn"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="48sp"

@@ -3,10 +3,7 @@ package com.example.smartkitchen;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -59,7 +56,7 @@ public class KnobController extends View implements View.OnTouchListener {
         float cy = getHeight() / 2.0f;
         float dx = cx - x;
         float dy = cy - y;
-        float radians = (float) Math.atan2(dy, dx);
+        float radians = (float) Math.atan2(dx, dy);
         float angle = (float) Math.toDegrees(radians);
         angle -= 90.0f; // adjust to make 0 degrees the starting point
         if (angle < 0.0f) {
@@ -78,29 +75,13 @@ public class KnobController extends View implements View.OnTouchListener {
         float snapAngle;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
                 // Save the touch position
                 float mTouchX = event.getX();
                 float mTouchY = event.getY();
                 if(insideKnob(mTouchX, mTouchY)){
                     float angle = getAngle(mTouchX, mTouchY);
                     snapAngle = snapToTick(angle);
-                    if (snapAngle != mAngle) {
-                        mAngle = snapAngle;
-                        invalidate();
-                        if (mListener != null) {
-                            mListener.onKnobValueChanged((int) mAngle / 36);
-                        }
-                    }
-                }
-                return true;
-            case MotionEvent.ACTION_MOVE:
-                float dx = event.getX();
-                float dy = event.getY();
-                if(insideKnob(dx, dy)){
-                    float newAngle = getAngle(dx, dy);
-                    // Snap to the nearest tick mark
-                    snapAngle = snapToTick(newAngle);
-                    // Update the angle and redraw the knob
                     if (snapAngle != mAngle) {
                         mAngle = snapAngle;
                         invalidate();
@@ -139,25 +120,16 @@ public class KnobController extends View implements View.OnTouchListener {
         labelPaint.setTextSize(60);
         labelPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
+        canvas.save();
+        canvas.rotate(360-mAngle, knobX, knobY);
         // Draw the ticks and labels
-        for (int i=0; i<mTickAngles.length; i++)  {
+        for (int i=mTickAngles.length-1; i>=0; i--)  {
             canvas.save();
             canvas.rotate(mTickAngles[i], knobX, knobY);
             canvas.drawText(Integer.toString(i), knobX - 18, knobY - tickRadius + 10, labelPaint);
             canvas.restore();
         }
 
-        // Define the size and position of the indicator
-        float indicatorX = knobX + (float) Math.cos(Math.toRadians(mAngle-90));
-        float indicatorY = knobY + (float) Math.sin(Math.toRadians(mAngle-90));
-
-        // Define the paint for the indicator
-        Paint indicatorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        indicatorPaint.setShader(new LinearGradient(0, -65, 0, 100, Color.RED, Color.BLACK, Shader.TileMode.REPEAT));
-        canvas.save();
-        canvas.rotate(mAngle, knobX, knobY);
-        RectF moval = new RectF(indicatorX-20, indicatorY-120, indicatorX+20, indicatorY);
-        canvas.drawOval(moval, indicatorPaint);
         canvas.restore();
     }
 

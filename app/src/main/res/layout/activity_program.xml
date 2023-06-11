@@ -9,7 +9,9 @@
         android:id="@+id/programSelector"
         android:layout_width="329dp"
         android:layout_height="50dp"
+        android:backgroundTint="@color/companyBlue"
         android:spinnerMode="dialog"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="@+id/techSupport"
         app:layout_constraintStart_toStartOf="@+id/listview_program"
         app:layout_constraintTop_toTopOf="@+id/techSupport" />
@@ -63,7 +65,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="@color/companyBlue"
-        android:text="@string/okButton"
+        android:text="@string/turnOn"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="48sp"

@@ -19,8 +19,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import java.util.Objects;
 
@@ -178,34 +186,60 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void stoveListener(Button button, Bundle extras, int buttonId){
         button.setOnClickListener(view -> {
-            Intent intent = new Intent(MainScreenActivity.this, KnobActivity.class);
-            if (extras != null) {
-                boolean ovenSetUp = extras.getBoolean("progSel");
-                Log.e("oven setup in main", String.valueOf(ovenSetUp));
-                if(ovenSetUp){
-                    Log.e("send data to support", "true");
-                    intent.putExtra("selprog", true);
-                    intent.putExtra("position", extras.getInt("position"));
-                    intent.putExtra("temperature", extras.getString("temperature"));
-                    intent.putExtra("program-text", extras.getString("program-text"));
-                    intent.putExtra("program-icon", extras.getInt("program-icon"));
-                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
-                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+            // inflate the layout of the popup window
+            LayoutInflater inflater = (LayoutInflater)
+                    getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popupView = inflater.inflate(R.layout.popup_window, null);
+//
+//            // create the popup window
+//            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+//            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            boolean focusable = true; // lets taps outside the popup also dismiss it
+            final PopupWindow popupWindow = new PopupWindow(popupView,  WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT, focusable);
+
+            // show the popup window
+            // which view you pass in doesn't matter, it is only used for the window tolken
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+            // dismiss the popup window when touched
+            popupView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    popupWindow.dismiss();
+                    return true;
                 }
-                else{
-                    intent.putExtra("selprog", false);
-                    intent.putExtra("supportButton", false);
-                }
-            }
-            intent.putExtra("buttonId", buttonId);
-            intent.putExtra("mainAct", true);
-            if(button.getText() != ""){
-                intent.putExtra("buttonValue", Integer.parseInt((String) button.getText()));
-            }
-            else{
-                intent.putExtra("buttonValue", 0);
-            }
-            startActivityForResult(intent, 5);
+            });
+
+
+//            Intent intent = new Intent(MainScreenActivity.this, KnobActivity.class);
+//            if (extras != null) {
+//                boolean ovenSetUp = extras.getBoolean("progSel");
+//                Log.e("oven setup in main", String.valueOf(ovenSetUp));
+//                if(ovenSetUp){
+//                    Log.e("send data to support", "true");
+//                    intent.putExtra("selprog", true);
+//                    intent.putExtra("position", extras.getInt("position"));
+//                    intent.putExtra("temperature", extras.getString("temperature"));
+//                    intent.putExtra("program-text", extras.getString("program-text"));
+//                    intent.putExtra("program-icon", extras.getInt("program-icon"));
+//                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
+//                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+//                }
+//                else{
+//                    intent.putExtra("selprog", false);
+//                    intent.putExtra("supportButton", false);
+//                }
+//            }
+//            intent.putExtra("buttonId", buttonId);
+//            intent.putExtra("mainAct", true);
+//            if(button.getText() != ""){
+//                intent.putExtra("buttonValue", Integer.parseInt((String) button.getText()));
+//            }
+//            else{
+//                intent.putExtra("buttonValue", 0);
+//            }
+//            startActivityForResult(intent, 5);
         } );
     }
 

@@ -6,69 +6,41 @@
     android:layout_height="match_parent"
     android:id="@+id/settingscreen">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/languageSwitch"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/languageSwitchEnglish"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textLanguageGreek"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textLanguageGreek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="324dp"
-        android:text="@string/languageSwitchGreek"
-        android:textColor = "?android:textColorPrimary"
+        android:layout_marginStart="295dp"
+        android:layout_marginTop="90dp"
+        android:text="@string/language"
+        android:textColor="?android:textColorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/languageSwitch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/languageSwitch"
-        app:layout_constraintVertical_bias="0.681" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/themeSwitch"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/themeSwitchLight"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/languageSwitch"
-        app:layout_constraintTop_toBottomOf="@+id/languageSwitch" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textThemeDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/themeSwitchDark"
-        android:textColor = "?android:textColorPrimary"
+        android:layout_marginTop="50dp"
+        android:text="@string/theme"
+        android:textColor="?android:textColorPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/themeSwitch"
-        app:layout_constraintEnd_toEndOf="@+id/textLanguageGreek"
         app:layout_constraintStart_toStartOf="@+id/textLanguageGreek"
-        app:layout_constraintTop_toTopOf="@+id/themeSwitch" />
+        app:layout_constraintTop_toBottomOf="@+id/textLanguageGreek" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/voiceCommandSwitch"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:text="@string/voiceCommands"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/themeSwitch"
-        app:layout_constraintStart_toStartOf="@+id/themeSwitch"
-        app:layout_constraintTop_toBottomOf="@+id/themeSwitch" />
+        app:layout_constraintStart_toStartOf="@+id/textThemeDark"
+        app:layout_constraintTop_toBottomOf="@+id/textThemeDark" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/voiceResponsesSwitch"
@@ -87,7 +59,7 @@
         android:id="@+id/notificationSwitch"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="36dp"
         android:text="@string/notificationsSwitch"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -113,9 +85,9 @@
         android:id="@+id/imageVoiceCommand"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="50dp"
         android:contentDescription="@string/desc_image_voice_commands"
-        app:layout_constraintEnd_toEndOf="@+id/textThemeDark"
-        app:layout_constraintStart_toStartOf="@+id/textThemeDark"
+        app:layout_constraintStart_toEndOf="@+id/voiceCommandSwitch"
         app:layout_constraintTop_toTopOf="@+id/voiceCommandSwitch"
         app:srcCompat="@drawable/microphone_mute" />
 
@@ -168,5 +140,26 @@
         android:text="@string/settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/language_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:backgroundTint="@color/companyBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/textLanguageGreek"
+        app:layout_constraintStart_toEndOf="@+id/textLanguageGreek"
+        app:layout_constraintTop_toTopOf="@+id/textLanguageGreek"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/theme_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:backgroundTint="@color/companyBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/textThemeDark"
+        app:layout_constraintStart_toEndOf="@+id/textThemeDark"
+        app:layout_constraintTop_toTopOf="@+id/textThemeDark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -165,7 +165,7 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
                 tempText.setText("280");
             }
             else{
-                tempText.setText(String.valueOf(Integer.parseInt(currentTemp)-10));
+                tempText.setText(String.valueOf(Integer.parseInt(currentTemp)-5));
             }
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("temp", tempText.getText().toString());
@@ -178,7 +178,7 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
                 tempText.setText("50");
             }
             else{
-                tempText.setText(String.valueOf(Integer.parseInt(currentTemp)+10));
+                tempText.setText(String.valueOf(Integer.parseInt(currentTemp)+5));
             }
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("temp", tempText.getText().toString());

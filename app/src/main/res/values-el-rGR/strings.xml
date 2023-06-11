@@ -3,24 +3,36 @@
     <string name="app_name">My Application</string>
     <string name="turnOn">Ενεργοποίηση</string>
     <string name="turnOff">Απενεργοποίηση</string>
-    <string name="languageSwitchEnglish">Αγγλικά</string>
-    <string name="languageSwitchGreek">Ελληνικά</string>
-    <string name="themeSwitchLight">Ανοιχτό</string>
-    <string name="themeSwitchDark">Σκούρο</string>
+    <string name="English">Αγγλικά</string>
+    <string name="Greek">Ελληνικά</string>
+    <string name="Light">Ανοιχτό</string>
+    <string name="Dark">Σκούρο</string>
     <string name="voiceCommands">Φωνητικές Εντολές</string>
     <string name="voiceResponses">Φωνητικές Απαντήσεις</string>
     <string name="notificationsSwitch">Ειδοποίησεις</string>
+    <string name="program_defrost_plus">Απόψυξη: Αποψύχει σωστά καταψυγμένα φαγητά</string>
+    <string name="program_fan_forced">Αέρας: Ενεργοποιεί τον ανεμιστήρα. Αυτή η λειτουργία παρέχει ομοιόμορφη κατανομή θερμότητας και σας επιτρέπει να μαγειρεύετε διαφορετικά τρόφιμα ταυτόχρονα.</string>
+    <string name="program_fan_bake">Αέρας + Πάνω-Κάτω Αντιστάσεις: Ενεργοποιεί τον ανεμιστήρα και τις αντιστάσεις. Αυτή η λειτουργία είναι ιδανική για αρτοποιία.</string>
+    <string name="program_bake">Πάνω-Κάτω Αντιστάσεις: Ενεργοποιεί τις αντιστάσεις. Αυτή η λειτουργία είναι ιδανική για παραδοσιακό ψήσιμο κρεάτων (μοσχάρι, αρνί κ.λπ.) και αρτοσκευάσματων.</string>
+    <string name="program_pastry_plus">Αέρας + Κάτω Αντίσταση: Ενεργοποιεί την κάτω αντίσταση με τον ανεμιστήρα. Αυτή η λειτουργία είναι ιδανική για τάρτες και αρτοσκευάσματα.</string>
+    <string name="program_fan_grill">Αέρας + Γκριλ: Ανάβει το γκριλ με τον ανεμιστήρα. Αυτή η λειτουργία είναι ιδανική για το μαγείρεμα μεγάλων κομματιών κρέατος όπως ψητό χοιρινό, πουλερικά κ.λπ.</string>
+    <string name="program_grill">Γκριλ: Ανάβει το γκριλ. Αυτή η λειτουργία είναι ιδανική για ψητά (μπριζόλα μπιφτέκια, κεμπάπ) και πιάτα γκρατινέ (σουφλέ).</string>
+    <string name="program_pyrolytic">Πυρόληση: Καθαρίζει το φούρνο</string>
     <string name="okButton">ΟΚ</string>
     <string name="temperature">Θερμοκρασία</string>
     <string name="turn_off">Απενεργοποίηση</string>
     <string name="change_settings">Αλλαγή ρυθμίσεων</string>
     <string name="title_select_prog">Επιλογή προγράμματος</string>
+    <string name="program_icon">εικονίδιο προγραμματος</string>
+    <string name="oven_icon">εικονίδιο φουρνου</string>
     <string name="hour">Ώρες</string>
     <string name="minutes">Λεπτά</string>
     <string name="set_timer">Ρύθμιση χρονόμετρου</string>
+    <string name="language">Γλώσσα</string>
+    <string name="theme">Θέμα</string>
     <string name="light">Φως</string>
     <string name="program_desc_light">Φως: Ανάβει τη λάμπα του φούρνου.</string>
-    <string name="defrostPlus">Απόψυξη Plus</string>
+    <string name="defrostPlus">Απόψυξη</string>
     <string name="fanForced">Αέρας</string>
     <string name="fanBake">Αέρας + Πάνω-Κάτω Αντιστάσεις</string>
     <string name="bake">Πάνω-Κάτω Αντιστάσεις</string>
@@ -32,4 +44,5 @@
         \n\nΓια περισσότερες πληροφορίες συμβουλευτείτε τις σελλίδες των προϊόντων από τα παρακάτω κουμπιά:</string>
     <string name="stove">Φούρνος</string>
     <string name="oven">Εστίες</string>
+    <string name="back_icon">εικονίδιο πίσω</string>
 </resources>

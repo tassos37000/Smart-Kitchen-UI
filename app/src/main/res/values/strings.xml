@@ -33,16 +33,28 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for SettingsActivity -->
-    <string name="languageSwitchEnglish">English</string>
-    <string name="languageSwitchGreek">Greek</string>
-    <string name="themeSwitchLight">Light</string>
-    <string name="themeSwitchDark">Dark</string>
+    <string name="English">English</string>
+    <string name="Greek">Greek</string>
+    <string name="Light">Light</string>
+    <string name="Dark">Dark</string>
     <string name="voiceCommands">Voice Commands</string>
     <string name="voiceResponses">Voice Responses</string>
     <string name="notificationsSwitch">Notifications</string>
     <string name="desc_image_voice_commands" translatable="false">image of voice commands</string>
     <string name="desc_image_voice_response" translatable="false">image of voice response</string>
     <string name="desc_image_notifications" translatable="false">image of notifications</string>
+    <string name="language">Language</string>
+    <string name="theme">Theme</string>
+
+    <string-array name="language_names">
+        <item name="program_name1">@string/English</item>
+        <item name="program_name1">@string/Greek</item>
+    </string-array>
+
+    <string-array name="theme_names">
+        <item name="program_name1">@string/Light</item>
+        <item name="program_name1">@string/Dark</item>
+    </string-array>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for ProgramActivity -->
@@ -70,18 +82,27 @@
 
     <string-array name="program_description">
         <item name="program_desc1">@string/program_desc_light</item>
-        <item name="program_defrost_plus">DEFROST PLUS: Defrost properly frozen food.</item>
-        <item name="program_fan_forced">FAN FORCED: Turns on the fan. You can cook different foods at the same time one or more positions and provides even heat distribution.</item>
-        <item name="program_fan_bake">FAN BAKE: Turns on the fan and heating elements. This function is ideal for bakery such as bread, pizza and focaccia.</item>
-        <item name="program_bake">BAKE: Turns on top and bottom heating elements. This function is ideal red meats, roast beef and leg of lamb.</item>
-        <item name="program_pastry_plus">PASTRY PLUS: Turns on the bottom heating element with the fan. This function is ideal for fruit flans, tarts, quiches and pastries.</item>
-        <item name="program_fan_grill">FAN GRILL: Turns on the top heating element with the fan. This function is ideal for cooking thick food items, whole pieces such as roast pork, poultry, etc.</item>
-        <item name="program_grill">GRILL: Turns on the top heating element. This function is ideal for grills, kebabs and gratin dishes. White meats should be put at a distance from the grill.</item>
-        <item name="program_pyrolytic">PYROLYTIC SELF-CLEAN: Cleans the oven.</item>
+        <item name="program_desc2">@string/program_defrost_plus</item>
+        <item name="program_desc3">@string/program_fan_forced</item>
+        <item name="program_desc4">@string/program_fan_bake</item>
+        <item name="program_desc5">@string/program_bake</item>
+        <item name="program_desc6">@string/program_pastry_plus</item>
+        <item name="program_desc7">@string/program_fan_grill</item>
+        <item name="program_desc8">@string/program_grill</item>
+        <item name="program_desc9">@string/program_pyrolytic</item>
     </string-array>
 
     <string name="program_desc_light">LIGHT: Turns on the oven light.</string>
-<!--    TODO make the program desc separate strings-->
+    <string name="program_defrost_plus">DEFROST PLUS: Defrosts properly frozen food.</string>
+    <string name="program_fan_forced">FAN FORCED: Turns on the fan. This function provides even heat distribution and allows you to cook different foods at the same time.</string>
+    <string name="program_fan_bake">FAN BAKE: Turns on the fan and heating elements. This function is ideal for bakery.</string>
+    <string name="program_bake">BAKE: Turns on top and bottom heating elements. This function is ideal for traditional roasting (beef, lamb, etc) and baking.</string>
+    <string name="program_pastry_plus">PASTRY PLUS: Turns on the bottom heating element with the fan. This function is ideal for tarts and pastries.</string>
+    <string name="program_fan_grill">FAN GRILL: Turns on the grill with the fan. This function is ideal for cooking thick food items, whole pieces such as roast pork, poultry, etc.</string>
+    <string name="program_grill">GRILL: Turns on the grill. This function is ideal for grills, kebabs and gratin dishes.</string>
+    <string name="program_pyrolytic">PYROLYTIC SELF-CLEAN: Cleans the oven.</string>
+
+
 
     <string name="okButton">OK</string>
     <string name="minTempText" translatable="false">150</string>
@@ -91,17 +112,17 @@
     <string name="title_select_prog">Select a program</string>
     <string name="turn_off">Turn off</string>
     <string name="change_settings">Change Settings</string>
-    <string name="program_icon" translatable="false">program icon</string>
-    <string name="oven_icon" translatable="false">oven icon</string>
+    <string name="program_icon">program icon</string>
+    <string name="oven_icon">oven icon</string>
     <string name="hour">Hour</string>
     <string name="minutes">Minutes</string>
     <string name="set_timer">Set timer</string>
     <string name="arrow" translatable="false"><![CDATA[->]]></string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
-    <!-- Strings used for ProgramActivity -->
-    <string name="textSupport">If you have any problems do not afraid to contact us at: 0800 242 437
-        \n\nFor more information go to product page from the buttons bellow:</string>
+    <!-- Strings used for TechSupportActivity -->
+    <string name="textSupport">If you have any problem do not hesitate to contact us at: 0800 242 437
+        \n\nFor more information about the product visit corresponding pages (use buttons bellow):</string>
     <string name="stove">Stove</string>
     <string name="oven">Oven</string>
     <string name="back_icon">back icon</string>

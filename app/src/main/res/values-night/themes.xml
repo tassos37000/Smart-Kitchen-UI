@@ -7,7 +7,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/companyBlue</item>
         <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:backgroundTint" parent="ImageButton">@color/black</item>
+        <item name="android:backgroundTint" parent="ImageButton">#171717</item>
         <item name="voice_commands_picture">@drawable/microphone_white</item>
         <!-- Customize your theme here. -->
     </style>

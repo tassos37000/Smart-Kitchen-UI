@@ -6,4 +6,5 @@
     <color name="stoveOff">#8F8F8F</color>
     <color name="companyBlue">#379CF0</color>
     <color name="textBlue">#0260AE</color>
+    <color name="spinner_back_color">#FFFFFFFF</color>
 </resources>
