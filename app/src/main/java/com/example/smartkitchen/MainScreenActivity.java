@@ -33,8 +33,10 @@ import android.widget.RelativeLayout;
 import java.util.Objects;
 
 public class MainScreenActivity extends AppCompatActivity {
-
     private SharedPreferences sharedPreferences;
+    private KnobController knobController;
+    private String lastValue = "0";
+    private PopupWindow popupWindow;
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,13 +166,12 @@ public class MainScreenActivity extends AppCompatActivity {
 //        mNotificationManager.notify(0, mBuilder.build());
 
 
-
-        stoveListener(topLeft, extras, R.id.topLeft);
-        stoveListener(topRight, extras, R.id.topRight);
-        stoveListener(bottomLeft, extras, R.id.bottomLeft);
-        stoveListener(bottomRight, extras, R.id.bottomRight);
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        stoveListener(topLeft, editor, R.id.topLeft);
+        stoveListener(topRight, editor, R.id.topRight);
+        stoveListener(bottomLeft, editor, R.id.bottomLeft);
+        stoveListener(bottomRight, editor, R.id.bottomRight);
+
         editor.putString("topLeft", (String) topLeft.getText());
         editor.putString("topRight", (String) topRight.getText());
         editor.putString("bottomLeft", (String) bottomLeft.getText());
@@ -184,23 +185,21 @@ public class MainScreenActivity extends AppCompatActivity {
         //No call for super(). Bug on API Level > 11.
     }
 
-    private void stoveListener(Button button, Bundle extras, int buttonId){
+    private void stoveListener(Button button, SharedPreferences.Editor editor, int buttonId){
         button.setOnClickListener(view -> {
+            if(popupWindow != null){
+                popupWindow.dismiss();
+            }
             // inflate the layout of the popup window
             LayoutInflater inflater = (LayoutInflater)
                     getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = inflater.inflate(R.layout.popup_window, null);
-//
-//            // create the popup window
-//            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-//            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            boolean focusable = true; // lets taps outside the popup also dismiss it
-            final PopupWindow popupWindow = new PopupWindow(popupView,  WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.MATCH_PARENT, focusable);
+
+            popupWindow = new PopupWindow(popupView,  680, 500, false);
 
             // show the popup window
             // which view you pass in doesn't matter, it is only used for the window tolken
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            popupWindow.showAtLocation(view, Gravity.END, -10, 65);
 
             // dismiss the popup window when touched
             popupView.setOnTouchListener(new View.OnTouchListener() {
@@ -211,35 +210,45 @@ public class MainScreenActivity extends AppCompatActivity {
                 }
             });
 
+            knobController = (KnobController) popupView.findViewById(R.id.knob_controller);
 
-//            Intent intent = new Intent(MainScreenActivity.this, KnobActivity.class);
-//            if (extras != null) {
-//                boolean ovenSetUp = extras.getBoolean("progSel");
-//                Log.e("oven setup in main", String.valueOf(ovenSetUp));
-//                if(ovenSetUp){
-//                    Log.e("send data to support", "true");
-//                    intent.putExtra("selprog", true);
-//                    intent.putExtra("position", extras.getInt("position"));
-//                    intent.putExtra("temperature", extras.getString("temperature"));
-//                    intent.putExtra("program-text", extras.getString("program-text"));
-//                    intent.putExtra("program-icon", extras.getInt("program-icon"));
-//                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
-//                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
-//                }
-//                else{
-//                    intent.putExtra("selprog", false);
-//                    intent.putExtra("supportButton", false);
-//                }
-//            }
-//            intent.putExtra("buttonId", buttonId);
-//            intent.putExtra("mainAct", true);
-//            if(button.getText() != ""){
-//                intent.putExtra("buttonValue", Integer.parseInt((String) button.getText()));
-//            }
-//            else{
-//                intent.putExtra("buttonValue", 0);
-//            }
-//            startActivityForResult(intent, 5);
+//            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            if(button.getText() == ""){
+                knobController.setKnob(0);
+            }
+            else{
+                knobController.setKnob(Integer.parseInt((String) button.getText()));
+            }
+
+            knobController.setOnKnobChangeListener(new KnobController.OnKnobChangeListener() {
+                @Override
+                public void onKnobValueChanged(int value) {
+//                    Log.e("KnobActivity", "Knob value changed: " + value);
+                    lastValue = String.valueOf(value);
+                    button.setText(lastValue);
+                    updateButton(button, lastValue);
+                }
+            });
+
+            Button closeButton = popupView.findViewById(R.id.closeButton);
+            closeButton.setOnClickListener(view2 -> {
+                switch (buttonId){
+                    case R.id.topLeft:
+                        editor.putString("topLeft", (String) button.getText());
+                        break;
+                    case R.id.topRight:
+                        editor.putString("topRight", (String) button.getText());
+                        break;
+                    case R.id.bottomLeft:
+                        editor.putString("bottomLeft", (String) button.getText());
+                        break;
+                    case R.id.bottomRight:
+                        editor.putString("bottomRight", (String) button.getText());
+                        break;
+                }
+                editor.apply();
+                popupWindow.dismiss();
+            });
         } );
     }
 

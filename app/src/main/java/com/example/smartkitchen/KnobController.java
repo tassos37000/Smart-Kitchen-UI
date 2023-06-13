@@ -100,13 +100,25 @@ public class KnobController extends View implements View.OnTouchListener {
         super.onDraw(canvas);
 
         // Define the size and position of the knob
-        knobSize = Math.min(getWidth(), getHeight()) * 0.8f;
+        knobSize = Math.min(getWidth(), getHeight()) * 0.6f;
         knobX = getWidth() / 2.0f;
         knobY = getHeight() / 2.0f;
 
-        // Define the paint for the knob
         Paint knobPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        knobPaint.setColor(ContextCompat.getColor(getContext(), R.color.companyBlue));
+        knobPaint.setColor(ContextCompat.getColor(getContext(), R.color.black));
+        knobPaint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(knobX, knobY, knobSize / 2 + 35, knobPaint);
+
+
+
+        // Define the paint for the knob
+        knobPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        if(mAngle == 0.0){
+            knobPaint.setColor(ContextCompat.getColor(getContext(), R.color.stoveOff));
+        }
+        else{
+            knobPaint.setColor(ContextCompat.getColor(getContext(), R.color.stoveOn));
+        }
         knobPaint.setStyle(Paint.Style.FILL);
 
         // Draw the knob on the canvas

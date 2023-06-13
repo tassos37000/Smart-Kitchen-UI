@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/popup_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0000000">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -15,15 +17,37 @@
         android:elevation="10dp">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:textSize="22sp"
-            android:text="This is a popup window."/>
+        <com.example.smartkitchen.KnobController
+            android:id="@+id/knob_controller"
+            android:layout_width="420dp"
+            android:layout_height="400dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Your Popup xml-window -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/closeButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/close"
+            android:backgroundTint="#FF0909"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="12dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="@+id/knob_controller"
+            app:layout_constraintStart_toStartOf="@+id/knob_controller"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/stove_indicator" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
