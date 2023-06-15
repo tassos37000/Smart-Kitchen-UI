@@ -227,7 +227,8 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
             Intent intent = new Intent(ProgramsActivity.this, MainScreenActivity.class);
             intent.putExtra("progSel", true);
             intent.putExtra("temperature", tempText.getText().toString());
-            intent.putExtra("program-text", programNames[customAdapter.sharedPreferences.getInt("pos", -1)]);
+            Log.e("programs activity program-text", String.valueOf(customAdapter.sharedPreferences.getInt("pos", -1)));
+            intent.putExtra("program-text", customAdapter.sharedPreferences.getInt("pos", -1));
             intent.putExtra("program-icon", icons[customAdapter.sharedPreferences.getInt("pos", -1)]);
             intent.putExtra("position", spinnerPosition);
 

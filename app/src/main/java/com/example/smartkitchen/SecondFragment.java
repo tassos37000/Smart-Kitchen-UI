@@ -56,18 +56,20 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         String temperature = getArguments().getString("temperature");
-        String program_text = getArguments().getString("program-text");
+        int program_text = getArguments().getInt("program-text");
         int program_icon = getArguments().getInt("program-icon");
         timeLeftInMillis = getArguments().getLong("timer-hour");
-        Log.e("Second Frag time", String.valueOf(timeLeftInMillis));
+        Log.e("Second Frag program_text", String.valueOf(program_text));
         int minutes = getArguments().getInt("timer-minutes");
         int position = getArguments().getInt("position");
 
 //        Log.e("Second frgament position", String.valueOf(position));
+        String[] programNames = getResources().getStringArray(R.array.program_names);
 
         binding.temperatureText.setText(temperature);
         binding.programIcon.setImageResource(program_icon);
         binding.ovenIcon.setImageResource(R.drawable.oven_on);
+        binding.programText.setText(programNames[program_text]);
 
         binding.changeSettingsButton.setOnClickListener(view2 ->{
             Intent intent = new Intent(getActivity(), ProgramsActivity.class);

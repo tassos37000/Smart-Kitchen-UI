@@ -99,17 +99,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/info"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="70dp"
+        android:adjustViewBounds="true"
+        android:backgroundTint="?android:backgroundTint"
+        android:contentDescription="@string/settingsIcon"
+        android:scaleType="centerInside"
+        android:src="@drawable/info"
+        android:text="info"
+        app:layout_constraintEnd_toEndOf="@+id/background_stove"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <include
         layout="@layout/content_main"
-        android:layout_width="463dp"
-        android:layout_height="389dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="40dp"
+        android:layout_width="396dp"
+        android:layout_height="380dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/background_stove"
         android:layout_width="397dp"
         android:layout_height="380dp"
         android:layout_marginStart="-19dp"
@@ -118,12 +132,23 @@
         app:layout_constraintTop_toTopOf="@+id/topLeft"
         app:srcCompat="@drawable/rectangle" />
 
+
+    <ImageView
+        android:id="@+id/line_seperator"
+        android:layout_width="10dp"
+        android:layout_height="470dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_screen_seperator" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="51dp" />
+        app:layout_constraintGuide_begin="52dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -137,7 +162,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="137dp" />
+        app:layout_constraintGuide_begin="136dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
@@ -154,3 +179,12 @@
         app:layout_constraintGuide_begin="962dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<android.support.design.widget.CoordinatorLayout
+android:layout_width="match_parent"
+android:layout_height="200dp"
+android:id="@+id/myCoordinatorLayout"
+android:layout_alignParentTop="true"
+android:layout_alignParentLeft="true"
+android:layout_alignParentStart="true">
+</android.support.design.widget.CoordinatorLayout>

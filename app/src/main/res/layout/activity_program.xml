@@ -8,7 +8,7 @@
     <Spinner
         android:id="@+id/programSelector"
         android:layout_width="329dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/companyBlue"
         android:spinnerMode="dialog"
         android:textSize="48sp"
@@ -60,9 +60,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSelecProg"
-        android:layout_width="180dp"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="25dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:paddingBottom="4dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="@color/companyBlue"
         android:text="@string/turnOn"

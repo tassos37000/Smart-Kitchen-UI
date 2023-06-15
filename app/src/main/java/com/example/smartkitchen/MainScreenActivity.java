@@ -8,11 +8,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -26,9 +29,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -37,6 +43,7 @@ public class MainScreenActivity extends AppCompatActivity {
     private KnobController knobController;
     private String lastValue = "0";
     private PopupWindow popupWindow;
+    private ImageView line_separator;
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +75,7 @@ public class MainScreenActivity extends AppCompatActivity {
                     intent.putExtra("selprog", true);
                     intent.putExtra("position", extras.getInt("position"));
                     intent.putExtra("temperature", extras.getString("temperature"));
-                    intent.putExtra("program-text", extras.getString("program-text"));
+                    intent.putExtra("program-text", extras.getInt("program-text"));
                     intent.putExtra("program-icon", extras.getInt("program-icon"));
                     intent.putExtra("timer-hour", extras.getLong("timer-hour"));
                     intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
@@ -104,7 +111,7 @@ public class MainScreenActivity extends AppCompatActivity {
             else if(ovenSetUp) {
                 bundle.putInt("position", extras.getInt("position"));
                 bundle.putString("temperature", extras.getString("temperature"));
-                bundle.putString("program-text", extras.getString("program-text"));
+                bundle.putInt("program-text", extras.getInt("program-text"));
                 bundle.putInt("program-icon", extras.getInt("program-icon"));
                 bundle.putLong("timer-hour", extras.getLong("timer-hour"));
                 bundle.putInt("timer-minutes", extras.getInt("timer-minutes"));
@@ -132,7 +139,7 @@ public class MainScreenActivity extends AppCompatActivity {
                     intent.putExtra("selprog", true);
                     intent.putExtra("position", extras.getInt("position"));
                     intent.putExtra("temperature", extras.getString("temperature"));
-                    intent.putExtra("program-text", extras.getString("program-text"));
+                    intent.putExtra("program-text", extras.getInt("program-text"));
                     intent.putExtra("program-icon", extras.getInt("program-icon"));
                     intent.putExtra("timer-hour", extras.getLong("timer-hour"));
                     intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
@@ -143,6 +150,32 @@ public class MainScreenActivity extends AppCompatActivity {
             }
             startActivityForResult(intent, 10);
 
+        });
+
+        ImageButton infoButton = findViewById(R.id.info);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar snackbar = Snackbar.make(v, "Το μήνυμα του snackbar", Snackbar.LENGTH_LONG);
+//                snackbar.setActionTextColor(Color.RED);
+                View snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(getResources().getColor(R.color.companyBlue, getApplicationContext().getTheme()));
+//                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) snackbarView.getLayoutParams();
+//                ConstraintLayout parentLayout = (ConstraintLayout) snackbarView.getParent();
+//
+//// Αλλαγή των παραμέτρων του snackbarView για μετακίνηση προς τα αριστερά
+//                params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID; // Ή όποιο άλλο View ID θέλετε να ευθυγραμμιστεί με το αριστερό άκρο
+//                params.endToEnd = ConstraintLayout.LayoutParams.UNSET; // Καταργήστε τη σύνδεση με το δεξί άκρο
+//                params.horizontalBias = 0.0f; // Μετακινήστε το snackbar προς τα αριστερά
+//
+//// Ενημερώστε τις παραμέτρους του snackbarView
+//                snackbarView.setLayoutParams(params);
+//
+//// Προσθέστε το snackbarView στο ConstraintLayout
+//                parentLayout.addView(snackbarView);
+
+                snackbar.show();
+            }
         });
 
 //        NotificationManager mNotificationManager;
@@ -187,6 +220,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void stoveListener(Button button, SharedPreferences.Editor editor, int buttonId){
         button.setOnClickListener(view -> {
+            int color = Color.parseColor("#FFFFFF");
+            line_separator.setColorFilter(color);
             if(popupWindow != null){
                 popupWindow.dismiss();
             }
@@ -248,6 +283,8 @@ public class MainScreenActivity extends AppCompatActivity {
                 }
                 editor.apply();
                 popupWindow.dismiss();
+                int color2 = Color.parseColor("#000000");
+                line_separator.setColorFilter(color2);
             });
         } );
     }

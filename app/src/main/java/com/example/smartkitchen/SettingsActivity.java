@@ -128,7 +128,7 @@ public class SettingsActivity extends AppCompatActivity{
                     intent.putExtra("progSel", extras.getBoolean("selprog"));
                     intent.putExtra("position", extras.getInt("position"));
                     intent.putExtra("temperature", extras.getString("temperature"));
-                    intent.putExtra("program-text", extras.getString("program-text"));
+                    intent.putExtra("program-text", extras.getInt("program-text"));
                     intent.putExtra("program-icon", extras.getInt("program-icon"));
                     intent.putExtra("timer-hour", extras.getLong("timer-hour"));
                     intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
