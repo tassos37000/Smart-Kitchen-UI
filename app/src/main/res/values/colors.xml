@@ -8,4 +8,5 @@
     <color name="companyBlue">#379CF0</color>
     <color name="textBlue">#0260AE</color>
     <color name="spinner_back_color">#FFFFFFFF</color>
+    <color name="snackbarBG">#1B1919</color>
 </resources>

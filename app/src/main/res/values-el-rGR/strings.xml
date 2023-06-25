@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">My Application</string>
-    <string name="turnOn">Ενεργοποίηση</string>
-    <string name="turnOff">Απενεργοποίηση</string>
+    <string name="turnOn">Ενεργοποίηση Φούρνου</string>
+    <string name="turnOff">Απενεργοποίηση Φούρνου</string>
+    <string name="stove_info">Πατήστε πάνω σε μία εστία για να αλλάξετε τη θερμοκρασία της</string>
     <string name="English">Αγγλικά</string>
     <string name="Greek">Ελληνικά</string>
     <string name="Light">Ανοιχτό</string>

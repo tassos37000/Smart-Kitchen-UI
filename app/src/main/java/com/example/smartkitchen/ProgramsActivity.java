@@ -23,7 +23,7 @@ import java.lang.*;
 public class ProgramsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private SharedPreferences sharedPreferences;
 
-    int[] icons = {R.drawable.light, R.drawable.defrost_plus, R.drawable.fan_forced, R.drawable.fan_bake, R.drawable.bake, R.drawable.pastry_plus, R.drawable.fan_grill, R.drawable.grill, R.drawable.pyrolytic};
+    int[] icons = {R.drawable.light, R.drawable.defrost_plus, R.drawable.fan_bake, R.drawable.bake, R.drawable.fan_forced, R.drawable.pastry_plus, R.drawable.fan_grill, R.drawable.grill, R.drawable.pyrolytic};
 
     int spinnerPosition;
     int counter = 0;

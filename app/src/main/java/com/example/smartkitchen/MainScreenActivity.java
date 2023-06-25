@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -28,11 +30,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -57,6 +61,7 @@ public class MainScreenActivity extends AppCompatActivity {
         Button topRight = findViewById(R.id.topRight);
         Button bottomLeft = findViewById(R.id.bottomLeft);
         Button bottomRight = findViewById(R.id.bottomRight);
+        line_separator = findViewById(R.id.line_seperator);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -156,23 +161,24 @@ public class MainScreenActivity extends AppCompatActivity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar snackbar = Snackbar.make(v, "Το μήνυμα του snackbar", Snackbar.LENGTH_LONG);
-//                snackbar.setActionTextColor(Color.RED);
+                Snackbar snackbar = Snackbar.make(v, getResources().getText(R.string.stove_info), Snackbar.LENGTH_LONG)
+                        .setTextColor(Color.WHITE)
+                        .setBackgroundTint(getResources().getColor(R.color.snackbarBG))
+                        .setTextMaxLines(3);
                 View snackbarView = snackbar.getView();
-                snackbarView.setBackgroundColor(getResources().getColor(R.color.companyBlue, getApplicationContext().getTheme()));
-//                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) snackbarView.getLayoutParams();
-//                ConstraintLayout parentLayout = (ConstraintLayout) snackbarView.getParent();
-//
-//// Αλλαγή των παραμέτρων του snackbarView για μετακίνηση προς τα αριστερά
-//                params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID; // Ή όποιο άλλο View ID θέλετε να ευθυγραμμιστεί με το αριστερό άκρο
-//                params.endToEnd = ConstraintLayout.LayoutParams.UNSET; // Καταργήστε τη σύνδεση με το δεξί άκρο
-//                params.horizontalBias = 0.0f; // Μετακινήστε το snackbar προς τα αριστερά
-//
-//// Ενημερώστε τις παραμέτρους του snackbarView
-//                snackbarView.setLayoutParams(params);
-//
-//// Προσθέστε το snackbarView στο ConstraintLayout
-//                parentLayout.addView(snackbarView);
+
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+                params.gravity = Gravity.TOP;
+                params.topMargin = 57;
+                params.leftMargin = 57;
+                params.height = 120;
+                params.width = 554;
+                snackbarView.setLayoutParams(params);
+
+                TextView snbtv = (TextView) snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+                snbtv.setTextSize(20);
+                snbtv.setTypeface(Typeface.DEFAULT_BOLD);
+                snbtv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                 snackbar.show();
             }

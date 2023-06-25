@@ -23,13 +23,14 @@
     <string name="number8" translatable="false">8</string>
     <string name="number9" translatable="false">9</string>
     <string name="noNumber" translatable="false"> </string>
-    <string name="turnOn">Turn on</string>
-    <string name="turnOff">Turn off</string>
+    <string name="turnOn">Turn on the oven</string>
+    <string name="turnOff">Turn off the oven</string>
     <string name="settings" translatable="false">settings</string>
     <string name="settingsIcon" translatable="false">settings icon</string>
     <string name="techSupport" translatable="false">tech support</string>
     <string name="techSupportIcon" translatable="false">tech support icon</string>
     <string name="ovenIcon" translatable="false">oven icon</string>
+    <string name="stove_info">Press on a stove to set temperature\n</string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for SettingsActivity -->
@@ -61,9 +62,9 @@
     <string-array name="program_names">
         <item name="program_name1">@string/light</item>
         <item name="program_name1">@string/defrostPlus</item>
-        <item name="program_name1">@string/fanForced</item>
         <item name="program_name1">@string/fanBake</item>
         <item name="program_name1">@string/bake</item>
+        <item name="program_name1">@string/fanForced</item>
         <item name="program_name1">@string/pastryPlus</item>
         <item name="program_name1">@string/fanGrill</item>
         <item name="program_name1">@string/grill</item>
@@ -83,9 +84,9 @@
     <string-array name="program_description">
         <item name="program_desc1">@string/program_desc_light</item>
         <item name="program_desc2">@string/program_defrost_plus</item>
-        <item name="program_desc3">@string/program_fan_forced</item>
-        <item name="program_desc4">@string/program_fan_bake</item>
-        <item name="program_desc5">@string/program_bake</item>
+        <item name="program_desc3">@string/program_fan_bake</item>
+        <item name="program_desc4">@string/program_bake</item>
+        <item name="program_desc5">@string/program_fan_forced</item>
         <item name="program_desc6">@string/program_pastry_plus</item>
         <item name="program_desc7">@string/program_fan_grill</item>
         <item name="program_desc8">@string/program_grill</item>
