@@ -4,6 +4,10 @@
     <string name="turnOn">Ενεργοποίηση Φούρνου</string>
     <string name="turnOff">Απενεργοποίηση Φούρνου</string>
     <string name="stove_info">Πατήστε πάνω σε μία εστία για να αλλάξετε τη θερμοκρασία της</string>
+    <string name="tts_stove">Έχετε θέσει τη θερμοκρασία</string>
+    <string name="tts_stove_middle">για την</string>
+    <string name="topLeft">πάνω αριστερά</string>
+    <string name="topRight">πάνω δεξιά</string>
     <string name="English">Αγγλικά</string>
     <string name="Greek">Ελληνικά</string>
     <string name="Light">Ανοιχτό</string>
@@ -46,4 +50,13 @@
     <string name="stove">Φούρνος</string>
     <string name="oven">Εστίες</string>
     <string name="back_icon">εικονίδιο πίσω</string>
+    <string name="tts_stove_end">εστία</string>
+    <string name="bottomLeft">κάτω αρσιτερά</string>
+    <string name="bottomRight">κάτω δέξια</string>
+    <string name="tts_stove_off">Έχετε απενεργοποιήσει την</string>
+    <string name="tts_program">Επιλέξτε πρόγραμμα για το φούρνο</string>
+    <string name="tts_oven_status">Έχετε ενεργοποιήσει το φούρνο στο</string>
+    <string name="tts_oven_status_middle">στους</string>
+    <string name="tts_oven_status_end">βαθμούς Κελσίου</string>
+    <string name="tts_oven_off">Ο φούρνος απενεργοποιήθηκε</string>
 </resources>

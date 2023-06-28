@@ -31,6 +31,14 @@
     <string name="techSupportIcon" translatable="false">tech support icon</string>
     <string name="ovenIcon" translatable="false">oven icon</string>
     <string name="stove_info">Press on a stove to set temperature\n</string>
+    <string name="tts_stove">You have set the temperature to </string>
+    <string name="tts_stove_off">You have turned off the </string>
+    <string name="tts_stove_middle"> for the </string>
+    <string name="topLeft"> top left </string>
+    <string name="topRight"> top right </string>
+    <string name="bottomLeft"> bottom left</string>
+    <string name="bottomRight"> bottom right</string>
+    <string name="tts_stove_end"> stove</string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for SettingsActivity -->
@@ -127,4 +135,10 @@
     <string name="stove">Stove</string>
     <string name="oven">Oven</string>
     <string name="back_icon">back icon</string>
+
+    <string name="tts_program">Select a program for the oven</string>
+    <string name="tts_oven_status">You have turned on the oven in the</string>
+    <string name="tts_oven_status_middle">at</string>
+    <string name="tts_oven_status_end">degrees Celsius</string>
+    <string name="tts_oven_off">The oven is turned off</string>
 </resources>

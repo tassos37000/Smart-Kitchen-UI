@@ -2,6 +2,8 @@ package com.example.smartkitchen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,12 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.smartkitchen.databinding.FragmentFirstBinding;
 
+import java.util.Locale;
+
 public class FirstFragment extends Fragment {
     int position = 0;
     private FragmentFirstBinding binding;
+    private TextToSpeech t1;
 
     @Override
     public View onCreateView(
@@ -23,6 +28,21 @@ public class FirstFragment extends Fragment {
     ) {
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
+        t1=new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = t1.setLanguage(Locale.getDefault());
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("error", "This Language is not supported");
+                    } else {
+                        Log.e("init TTS", "all ok");
+                    }
+                } else {
+                    Log.e("error", String.valueOf(status));
+                }
+            }
+        });
         return binding.getRoot();
 
     }
@@ -40,6 +60,10 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ProgramsActivity.class);
                 intent.putExtra("current_position", position);
+                intent.putExtra("voiceresponces", getArguments().getBoolean("voiceresponces"));
+                if(getArguments().getBoolean("voiceresponces")) {
+                    t1.speak(getResources().getString(R.string.tts_program), TextToSpeech.QUEUE_FLUSH, null, null);
+                }
                 startActivityForResult(intent, 1);
             }
         });

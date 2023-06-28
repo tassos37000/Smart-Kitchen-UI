@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ public class SecondFragment extends Fragment {
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private FragmentSecondBinding binding;
+    private TextToSpeech t1;
 
     public MainScreenActivity activity;
 
@@ -42,6 +44,21 @@ public class SecondFragment extends Fragment {
     ) {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
+        t1=new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = t1.setLanguage(Locale.getDefault());
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("error", "This Language is not supported");
+                    } else {
+                        Log.e("init TTS", "all ok");
+                    }
+                } else {
+                    Log.e("error", String.valueOf(status));
+                }
+            }
+        });
         return binding.getRoot();
 
     }
@@ -77,12 +94,19 @@ public class SecondFragment extends Fragment {
             intent.putExtra("second_fragment", true);
             Log.e("chnge set button", String.valueOf(timeLeftInMillis));
             intent.putExtra("timer-hour", timeLeftInMillis + System.currentTimeMillis());
+            intent.putExtra("voiceresponces", getArguments().getBoolean("voiceresponces"));
+            if(getArguments().getBoolean("voiceresponces")) {
+                t1.speak(getResources().getString(R.string.tts_program), TextToSpeech.QUEUE_FLUSH, null, null);
+            }
             startActivityForResult(intent, 5);
         });
 
         binding.turnOffButton.setOnClickListener(view2 ->{
             Intent intent = new Intent(getActivity(), MainScreenActivity.class);
             intent.putExtra("second_fragment", false);
+            if(getArguments().getBoolean("voiceresponces")) {
+                t1.speak(getResources().getString(R.string.tts_oven_off), TextToSpeech.QUEUE_FLUSH, null, null);
+            }
             startActivity(intent);
         });
 
@@ -92,6 +116,8 @@ public class SecondFragment extends Fragment {
 //        Log.e("Second fragment program icon", String.valueOf(program_icon));
 //        Log.e("Second fragment hour", String.valueOf(hour));
 //        Log.e("Second fragment minutes", String.valueOf(minutes));
+        if(getArguments().getLong("timer-hour") == 0)
+            return;
 
         countdownText = binding.timerText;
         startTimer(timeLeftInMillis - System.currentTimeMillis());
@@ -129,6 +155,9 @@ public class SecondFragment extends Fragment {
             public void onFinish() {
                 timeLeftInMillis = 0;
                 updateCountdownText();
+                if(getArguments().getBoolean("voiceresponces")) {
+                    t1.speak(getResources().getString(R.string.tts_oven_off), TextToSpeech.QUEUE_FLUSH, null, null);
+                }
                 NotificationManager mNotificationManager;
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity, "notify_001");
@@ -147,11 +176,19 @@ public class SecondFragment extends Fragment {
                 mNotificationManager.createNotificationChannel(channel);
                 mBuilder.setChannelId(channelId);
                 //enable-disable notification
-                mNotificationManager.notify(0, mBuilder.build());
+                Log.e("getArguments", String.valueOf(getArguments()));
+                Log.e("not bool", String.valueOf(getArguments().getBoolean("notifications")));
+                if(getArguments() == null || getArguments().getBoolean("notifications")){
+                    mNotificationManager.notify(0, mBuilder.build());
+                }
 
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FirstFragment());
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("voiceresponces", getArguments().getBoolean("voiceresponces"));
+                FirstFragment firstFragment = new FirstFragment();
+                firstFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, firstFragment);
                 fragmentTransaction.commit();
             }
         }.start();

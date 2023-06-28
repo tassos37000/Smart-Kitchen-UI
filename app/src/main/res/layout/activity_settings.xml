@@ -32,38 +32,26 @@
         app:layout_constraintTop_toBottomOf="@+id/textLanguageGreek" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/voiceCommandSwitch"
+        android:id="@+id/voiceResponsesSwitch"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/voiceCommands"
+        android:layout_marginTop="50dp"
+        android:text="@string/voiceResponses"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textThemeDark"
         app:layout_constraintTop_toBottomOf="@+id/textThemeDark" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/voiceResponsesSwitch"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:text="@string/voiceResponses"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/voiceCommandSwitch"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/voiceCommandSwitch"
-        app:layout_constraintTop_toBottomOf="@+id/voiceCommandSwitch" />
-
-    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/notificationSwitch"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="50dp"
         android:text="@string/notificationsSwitch"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/voiceResponsesSwitch"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/voiceResponsesSwitch"
         app:layout_constraintTop_toBottomOf="@+id/voiceResponsesSwitch" />
 
@@ -82,34 +70,26 @@
         app:layout_constraintGuide_begin="481dp" />
 
     <ImageView
-        android:id="@+id/imageVoiceCommand"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="50dp"
-        android:contentDescription="@string/desc_image_voice_commands"
-        app:layout_constraintStart_toEndOf="@+id/voiceCommandSwitch"
-        app:layout_constraintTop_toTopOf="@+id/voiceCommandSwitch"
-        app:srcCompat="@drawable/microphone_mute" />
-
-    <ImageView
         android:id="@+id/imageVoiceResponse"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageVoiceCommand"
-        app:layout_constraintStart_toStartOf="@+id/imageVoiceCommand"
+        android:contentDescription="@string/desc_image_voice_response"
+        app:layout_constraintBottom_toBottomOf="@+id/voiceResponsesSwitch"
+        app:layout_constraintEnd_toEndOf="@+id/theme_spinner"
         app:layout_constraintTop_toTopOf="@+id/voiceResponsesSwitch"
-        app:srcCompat="@drawable/mute_sound"
-        android:contentDescription="@string/desc_image_voice_response" />
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/mute_sound" />
 
     <ImageView
         android:id="@+id/imageNotification"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:contentDescription="@string/desc_image_notifications"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationSwitch"
         app:layout_constraintEnd_toEndOf="@+id/imageVoiceResponse"
         app:layout_constraintStart_toStartOf="@+id/imageVoiceResponse"
         app:layout_constraintTop_toTopOf="@+id/notificationSwitch"
-        app:srcCompat="@drawable/mute_bell"
-        android:contentDescription="@string/desc_image_notifications" />
+        app:srcCompat="@drawable/mute_bell" />
 
     <ImageButton
         android:id="@+id/techSupport"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,9 +20,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.lang.*;
+import java.util.Locale;
 
 public class ProgramsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private SharedPreferences sharedPreferences;
+    private TextToSpeech t1;
 
     int[] icons = {R.drawable.light, R.drawable.defrost_plus, R.drawable.fan_bake, R.drawable.bake, R.drawable.fan_forced, R.drawable.pastry_plus, R.drawable.fan_grill, R.drawable.grill, R.drawable.pyrolytic};
 
@@ -42,6 +45,22 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
 
         Bundle extras = getIntent().getExtras();
         Button selectedProgram = findViewById(R.id.buttonSelecProg);
+
+        t1=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = t1.setLanguage(Locale.getDefault());
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("error", "This Language is not supported");
+                    } else {
+                        Log.e("init TTS", "all ok");
+                    }
+                } else {
+                    Log.e("error", String.valueOf(status));
+                }
+            }
+        });
 
         spinner.setSelection(sharedPreferences.getInt("pos", -1));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -235,6 +254,11 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
             long timerEnd = System.currentTimeMillis() + ((long) timerHour.getValue() * 60 * 60 + timerMinutes.getValue() * 60L) * 1000;
             intent.putExtra("timer-hour", timerEnd);
             intent.putExtra("timer-minutes", timerMinutes.getValue());
+            String text = getResources().getString(R.string.tts_oven_status) + " " + programNames[customAdapter.sharedPreferences.getInt("pos", -1)]
+                    + " " + getResources().getString(R.string.tts_oven_status_middle) + " " + tempText.getText().toString() + " " + getResources().getString(R.string.tts_oven_status_end);
+            if(extras.getBoolean("voiceresponces")) {
+                t1.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+            }
 
 //            Log.e("Program Activity position", String.valueOf(spinnerPosition));
 //            Log.e("temperature", tempText.getText().toString());

@@ -34,10 +34,6 @@ public class SettingsActivity extends AppCompatActivity{
 
         ImageButton backButton = findViewById(R.id.backButton);
 
-        SwitchCompat voiceCommandsSwitch = findViewById(R.id.voiceCommandSwitch);
-        ImageView voiceCommandImage = findViewById(R.id.imageVoiceCommand);
-        changeSaveSwitchImage(voiceCommandsSwitch, voiceCommandImage, "VoiceCommandSS", R.drawable.microphone, R.drawable.microphone_mute, R.drawable.microphone_white, R.drawable.microphone_mute_white);
-
         SwitchCompat voiceResponseSwitch = findViewById(R.id.voiceResponsesSwitch);
         ImageView voiceResponseImage = findViewById(R.id.imageVoiceResponse);
         changeSaveSwitchImage(voiceResponseSwitch, voiceResponseImage, "VoiceResponseSS", R.drawable.sound, R.drawable.mute_sound, R.drawable.sound_white, R.drawable.mute_sound_white);
@@ -132,8 +128,12 @@ public class SettingsActivity extends AppCompatActivity{
                     intent.putExtra("program-icon", extras.getInt("program-icon"));
                     intent.putExtra("timer-hour", extras.getLong("timer-hour"));
                     intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+
                 }
             }
+            intent.putExtra("settings", true);
+            intent.putExtra("notifications", notificationSwitch.isChecked());
+            intent.putExtra("voice_response", voiceResponseSwitch.isChecked());
             startActivity(intent);
             this.finish();
         });
