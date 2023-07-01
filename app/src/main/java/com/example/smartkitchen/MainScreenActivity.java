@@ -1,9 +1,5 @@
 package com.example.smartkitchen;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,17 +8,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -33,24 +22,17 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 public class MainScreenActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
@@ -59,8 +41,7 @@ public class MainScreenActivity extends AppCompatActivity {
     private PopupWindow popupWindow;
     private ImageView line_separator;
     private TextToSpeech t1;
-    private Boolean notificationBoolean;
-    @SuppressLint("MissingPermission")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +53,7 @@ public class MainScreenActivity extends AppCompatActivity {
             Log.e("bundle from settings", String.valueOf(extras.getBoolean("settings")));
             Log.e("notif switch", String.valueOf(extras.getBoolean("notifications")));
             if(extras.getBoolean("settings")){
-                notificationBoolean = extras.getBoolean("notifications");
+                boolean notificationBoolean = extras.getBoolean("notifications");
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("spnotification", notificationBoolean);
                 editor.putBoolean("spvoiceres", extras.getBoolean("voice_response"));
@@ -90,19 +71,16 @@ public class MainScreenActivity extends AppCompatActivity {
         Button bottomRight = findViewById(R.id.bottomRight);
         line_separator = findViewById(R.id.line_seperator);
 
-        t1=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    int result = t1.setLanguage(Locale.getDefault());
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("error", "This Language is not supported");
-                    } else {
-                        Log.e("init TTS", "all ok");
-                    }
+        t1=new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = t1.setLanguage(Locale.getDefault());
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("error", "This Language is not supported");
                 } else {
-                    Log.e("error", String.valueOf(status));
+                    Log.e("init TTS", "all ok");
                 }
+            } else {
+                Log.e("error", String.valueOf(status));
             }
         });
 
@@ -112,11 +90,16 @@ public class MainScreenActivity extends AppCompatActivity {
         updateButton(bottomRight, sharedPreferences.getString("bottomRight", ""));
 
         supportButton.setOnClickListener(view -> {
+            OvenOnFragment ovenOn = (OvenOnFragment) getSupportFragmentManager().findFragmentByTag("OVEN_ON");
+            boolean ovenIsOn = false;
+            if (ovenOn != null && ovenOn.isVisible()) {
+                ovenIsOn = true;
+            }
             Intent intent = new Intent(MainScreenActivity.this, SupportActivity.class);
             if (extras != null) {
                 boolean ovenSetUp = extras.getBoolean("progSel");
                 Log.e("oven setup in main", String.valueOf(ovenSetUp));
-                if(ovenSetUp){
+                if(ovenSetUp && ovenIsOn){
                     Log.e("send data to support", "true");
                     intent.putExtra("selprog", true);
                     intent.putExtra("position", extras.getInt("position"));
@@ -139,9 +122,9 @@ public class MainScreenActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putBoolean("voiceresponces", sharedPreferences.getBoolean("spvoiceres", true));
-        FirstFragment firstFragment = new FirstFragment();
-        firstFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.nav_host_fragment_content_main, firstFragment);
+        OvenOffFragment ovenOffFragment = new OvenOffFragment();
+        ovenOffFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.nav_host_fragment_content_main, ovenOffFragment, "OVEN_OFF");
         if (extras != null) {
             Button tempButton = findViewById(extras.getInt("buttonId"));
             if(extras.getString("stoveValue") != null){
@@ -153,9 +136,9 @@ public class MainScreenActivity extends AppCompatActivity {
             boolean ovenSetUp = extras.getBoolean("progSel");
             if(backFromProgram){
                 bundle.putInt("current_position", extras.getInt("current_position"));
-                firstFragment = new FirstFragment();
-                firstFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, firstFragment);
+                ovenOffFragment = new OvenOffFragment();
+                ovenOffFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, ovenOffFragment, "OVEN_OFF");
             }
 
             else if(ovenSetUp) {
@@ -173,14 +156,14 @@ public class MainScreenActivity extends AppCompatActivity {
 //                Log.e("Main screen program icon", String.valueOf(extras.getInt("program-icon")));
 //                Log.e("Main screen hour", String.valueOf(extras.getInt("timer-hour")));
 //                Log.e("Main screen minutes", String.valueOf(extras.getInt("timer-minutes")));
-                SecondFragment secondFragment = new SecondFragment();
-                secondFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, secondFragment);
+                OvenOnFragment ovenOnFragment = new OvenOnFragment();
+                ovenOnFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, ovenOnFragment, "OVEN_ON");
 
                 NotificationManager mNotificationManager;
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "notify_001");
                 Intent ii = new Intent(getApplicationContext(), MainScreenActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, 0);
+                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, PendingIntent.FLAG_IMMUTABLE);
 
                 mBuilder.setContentIntent(pendingIntent);
                 mBuilder.setSmallIcon(R.drawable.thermometer);
@@ -205,10 +188,16 @@ public class MainScreenActivity extends AppCompatActivity {
 
 
         settingsButton.setOnClickListener(view -> {
+            OvenOnFragment ovenOn = (OvenOnFragment) getSupportFragmentManager().findFragmentByTag("OVEN_ON");
+            boolean ovenIsOn = false;
+            if (ovenOn != null && ovenOn.isVisible()) {
+                ovenIsOn = true;
+            }
             Intent intent = new Intent(MainScreenActivity.this, SettingsActivity.class);
             if (extras != null) {
+                Log.e("progSel in MainScreen", String.valueOf(extras.getBoolean("progSel")));
                 boolean ovenSetUp = extras.getBoolean("progSel");
-                if(ovenSetUp){
+                if(ovenSetUp && ovenIsOn){
                     intent.putExtra("selprog", true);
                     intent.putExtra("position", extras.getInt("position"));
                     intent.putExtra("temperature", extras.getString("temperature"));
@@ -226,30 +215,27 @@ public class MainScreenActivity extends AppCompatActivity {
         });
 
         ImageButton infoButton = findViewById(R.id.info);
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar snackbar = Snackbar.make(v, getResources().getText(R.string.stove_info), Snackbar.LENGTH_LONG)
-                        .setTextColor(Color.WHITE)
-                        .setBackgroundTint(getResources().getColor(R.color.snackbarBG))
-                        .setTextMaxLines(3);
-                View snackbarView = snackbar.getView();
+        infoButton.setOnClickListener(v -> {
+            Snackbar snackbar = Snackbar.make(v, getResources().getText(R.string.stove_info), Snackbar.LENGTH_LONG)
+                    .setTextColor(Color.WHITE)
+                    .setBackgroundTint(getResources().getColor(R.color.snackbarBG))
+                    .setTextMaxLines(3);
+            View snackbarView = snackbar.getView();
 
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
-                params.gravity = Gravity.TOP;
-                params.topMargin = 57;
-                params.leftMargin = 57;
-                params.height = 120;
-                params.width = 554;
-                snackbarView.setLayoutParams(params);
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbarView.getLayoutParams();
+            params.gravity = Gravity.TOP;
+            params.topMargin = 57;
+            params.leftMargin = 57;
+            params.height = 120;
+            params.width = 554;
+            snackbarView.setLayoutParams(params);
 
-                TextView snbtv = (TextView) snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
-                snbtv.setTextSize(20);
-                snbtv.setTypeface(Typeface.DEFAULT_BOLD);
-                snbtv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            TextView snbtv = snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
+            snbtv.setTextSize(20);
+            snbtv.setTypeface(Typeface.DEFAULT_BOLD);
+            snbtv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
-                snackbar.show();
-            }
+            snackbar.show();
         });
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -273,8 +259,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void stoveListener(Button button, SharedPreferences.Editor editor, int buttonId){
         button.setOnClickListener(view -> {
-            int color = Color.parseColor("#FFFFFF");
-            line_separator.setColorFilter(color);
+//            int color = Color.parseColor(Integer.toHexString(getColor(R.color.seperator)));
+            line_separator.setColorFilter(getColor(R.color.seperator_off));
             if(popupWindow != null){
                 popupWindow.dismiss();
             }
@@ -298,7 +284,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 }
             });
 
-            knobController = (KnobController) popupView.findViewById(R.id.knob_controller);
+            knobController = popupView.findViewById(R.id.knob_controller);
 
 //            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             if(button.getText() == ""){
@@ -308,14 +294,11 @@ public class MainScreenActivity extends AppCompatActivity {
                 knobController.setKnob(Integer.parseInt((String) button.getText()));
             }
 
-            knobController.setOnKnobChangeListener(new KnobController.OnKnobChangeListener() {
-                @Override
-                public void onKnobValueChanged(int value) {
+            knobController.setOnKnobChangeListener(value -> {
 //                    Log.e("KnobActivity", "Knob value changed: " + value);
-                    lastValue = String.valueOf(value);
-                    button.setText(lastValue);
-                    updateButton(button, lastValue);
-                }
+                lastValue = String.valueOf(value);
+                button.setText(lastValue);
+                updateButton(button, lastValue);
             });
 
             Button closeButton = popupView.findViewById(R.id.closeButton);
@@ -353,8 +336,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
                 editor.apply();
                 popupWindow.dismiss();
-                int color2 = Color.parseColor("#000000");
-                line_separator.setColorFilter(color2);
+//                int color2 = Color.parseColor(Integer.toHexString(getColor(R.color.seperator_off)));
+                line_separator.setColorFilter(getColor(R.color.seperator));
             });
         } );
     }

@@ -22,41 +22,38 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import com.example.smartkitchen.databinding.FragmentSecondBinding;
+import com.example.smartkitchen.databinding.FragmentOvenOnBinding;
 
 import java.util.Locale;
 import java.lang.*;
 
-public class SecondFragment extends Fragment {
+public class OvenOnFragment extends Fragment {
 
     private TextView countdownText;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
-    private FragmentSecondBinding binding;
+    private FragmentOvenOnBinding binding;
     private TextToSpeech t1;
 
     public MainScreenActivity activity;
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
-        t1=new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    int result = t1.setLanguage(Locale.getDefault());
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("error", "This Language is not supported");
-                    } else {
-                        Log.e("init TTS", "all ok");
-                    }
+        binding = FragmentOvenOnBinding.inflate(inflater, container, false);
+        t1=new TextToSpeech(getContext(), status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = t1.setLanguage(Locale.getDefault());
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("error", "This Language is not supported");
                 } else {
-                    Log.e("error", String.valueOf(status));
+                    Log.e("init TTS", "all ok");
                 }
+            } else {
+                Log.e("error", String.valueOf(status));
             }
         });
         return binding.getRoot();
@@ -64,7 +61,7 @@ public class SecondFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
         this.activity = (MainScreenActivity) activity;
     }
@@ -77,7 +74,6 @@ public class SecondFragment extends Fragment {
         int program_icon = getArguments().getInt("program-icon");
         timeLeftInMillis = getArguments().getLong("timer-hour");
         Log.e("Second Frag program_text", String.valueOf(program_text));
-        int minutes = getArguments().getInt("timer-minutes");
         int position = getArguments().getInt("position");
 
 //        Log.e("Second frgament position", String.valueOf(position));
@@ -102,12 +98,10 @@ public class SecondFragment extends Fragment {
         });
 
         binding.turnOffButton.setOnClickListener(view2 ->{
-            Intent intent = new Intent(getActivity(), MainScreenActivity.class);
-            intent.putExtra("second_fragment", false);
             if(getArguments().getBoolean("voiceresponces")) {
                 t1.speak(getResources().getString(R.string.tts_oven_off), TextToSpeech.QUEUE_FLUSH, null, null);
             }
-            startActivity(intent);
+            changeToOvenOffFragment();
         });
 
 
@@ -116,12 +110,10 @@ public class SecondFragment extends Fragment {
 //        Log.e("Second fragment program icon", String.valueOf(program_icon));
 //        Log.e("Second fragment hour", String.valueOf(hour));
 //        Log.e("Second fragment minutes", String.valueOf(minutes));
-        if(getArguments().getLong("timer-hour") == 0)
-            return;
-
-        countdownText = binding.timerText;
-        startTimer(timeLeftInMillis - System.currentTimeMillis());
-
+        if(getArguments().getLong("timer-hour") - System.currentTimeMillis() > 0){
+            countdownText = binding.timerText;
+            startTimer(timeLeftInMillis - System.currentTimeMillis());
+        }
     }
 
     @Override
@@ -130,16 +122,25 @@ public class SecondFragment extends Fragment {
         binding = null;
     }
 
+    private void changeToOvenOffFragment(){
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("voiceresponces", getArguments().getBoolean("voiceresponces"));
+        bundle.putBoolean("second_fragment", false);
+        OvenOffFragment ovenOffFragment = new OvenOffFragment();
+        ovenOffFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.nav_host_fragment_content_main, ovenOffFragment, "OVEN_OFF");
+        fragmentTransaction.commit();
+    }
+
     private void startTimer(long time) {
 //        timeLeftInMillis = (hours * 60 * 60 + minutes * 60) * 1000;
         Log.e("Second fragment time in start timer", String.valueOf(time));
         timeLeftInMillis = time;
 
         if(time < 0){
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.nav_host_fragment_content_main, new FirstFragment());
-            fragmentTransaction.commit();
+            changeToOvenOffFragment();
             return;
         }
 
@@ -162,7 +163,7 @@ public class SecondFragment extends Fragment {
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity, "notify_001");
                 Intent ii = new Intent(activity, MainScreenActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, ii, 0);
+                PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, ii, PendingIntent.FLAG_IMMUTABLE);
 
                 mBuilder.setContentIntent(pendingIntent);
                 mBuilder.setSmallIcon(R.drawable.thermometer);
@@ -181,15 +182,7 @@ public class SecondFragment extends Fragment {
                 if(getArguments() == null || getArguments().getBoolean("notifications")){
                     mNotificationManager.notify(0, mBuilder.build());
                 }
-
-                FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("voiceresponces", getArguments().getBoolean("voiceresponces"));
-                FirstFragment firstFragment = new FirstFragment();
-                firstFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.nav_host_fragment_content_main, firstFragment);
-                fragmentTransaction.commit();
+                changeToOvenOffFragment();
             }
         }.start();
     }

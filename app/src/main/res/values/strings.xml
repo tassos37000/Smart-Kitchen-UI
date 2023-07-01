@@ -141,4 +141,5 @@
     <string name="tts_oven_status_middle">at</string>
     <string name="tts_oven_status_end">degrees Celsius</string>
     <string name="tts_oven_off">The oven is turned off</string>
+    <string name="indicator_for_knob">indicator for knob</string>
 </resources>

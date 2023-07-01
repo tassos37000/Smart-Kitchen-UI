@@ -3,7 +3,6 @@ package com.example.smartkitchen;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomAdapter extends BaseAdapter {
+public class ProgramAdapter extends BaseAdapter {
+    /*
+    * Custom adapter for Programs Activity to select program
+    * */
     public SharedPreferences sharedPreferences;
     Context context;
     int[] programIcons;
@@ -19,7 +21,7 @@ public class CustomAdapter extends BaseAdapter {
 
     LayoutInflater inflater;
 
-    public CustomAdapter(Context applicationContext, int[] programIcons, String[] programNames) {
+    public ProgramAdapter(Context applicationContext, int[] programIcons, String[] programNames) {
         this.context = applicationContext;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.context);
         this.programIcons = programIcons;

@@ -9,4 +9,6 @@
     <color name="textBlue">#0260AE</color>
     <color name="spinner_back_color">#FFFFFFFF</color>
     <color name="snackbarBG">#1B1919</color>
+    <color name="seperator">#020202</color>
+    <color name="seperator_off">#FFFFFF</color>
 </resources>

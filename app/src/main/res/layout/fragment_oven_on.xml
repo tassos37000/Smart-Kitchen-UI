@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="396dp"
     android:layout_height="380dp"
-    tools:context=".SecondFragment">
+    tools:context=".OvenOnFragment">
 
     <ImageView
         android:id="@+id/program_icon"
@@ -91,7 +91,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
-        android:text="Αέρας Πανω κάτω Αντιστάσεις"
+        android:text="@string/Light"
         android:textColor="@color/companyBlue"
         android:textSize="24sp"
         android:textStyle="bold"

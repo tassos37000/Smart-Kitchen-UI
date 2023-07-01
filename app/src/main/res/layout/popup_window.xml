@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/popup_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,7 +44,8 @@
             app:layout_constraintEnd_toEndOf="@+id/knob_controller"
             app:layout_constraintStart_toStartOf="@+id/knob_controller"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stove_indicator" />
+            app:srcCompat="@drawable/stove_indicator"
+            android:contentDescription="@string/indicator_for_knob" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

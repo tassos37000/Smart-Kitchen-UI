@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="spinner_back_color">#FF000000</color>
+    <color name="seperator">#FFFFFF</color>
+    <color name="seperator_off">#171717</color>
 </resources>

@@ -59,4 +59,5 @@
     <string name="tts_oven_status_middle">στους</string>
     <string name="tts_oven_status_end">βαθμούς Κελσίου</string>
     <string name="tts_oven_off">Ο φούρνος απενεργοποιήθηκε</string>
+    <string name="indicator_for_knob">δείκτης για διακόπτη εστιών</string>
 </resources>

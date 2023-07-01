@@ -109,8 +109,6 @@ public class KnobController extends View implements View.OnTouchListener {
         knobPaint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(knobX, knobY, knobSize / 2 + 35, knobPaint);
 
-
-
         // Define the paint for the knob
         knobPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         if(mAngle == 0.0){

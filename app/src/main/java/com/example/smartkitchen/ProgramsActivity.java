@@ -30,7 +30,7 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
 
     int spinnerPosition;
     int counter = 0;
-    CustomAdapter customAdapter;
+    ProgramAdapter programAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,25 +40,22 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Spinner spinner = findViewById(R.id.programSelector);
-        customAdapter = new CustomAdapter(getApplicationContext(), icons, programNames);
-        spinner.setAdapter(customAdapter);
+        programAdapter = new ProgramAdapter(getApplicationContext(), icons, programNames);
+        spinner.setAdapter(programAdapter);
 
         Bundle extras = getIntent().getExtras();
         Button selectedProgram = findViewById(R.id.buttonSelecProg);
 
-        t1=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    int result = t1.setLanguage(Locale.getDefault());
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        Log.e("error", "This Language is not supported");
-                    } else {
-                        Log.e("init TTS", "all ok");
-                    }
+        t1=new TextToSpeech(this, status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                int result = t1.setLanguage(Locale.getDefault());
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("error", "This Language is not supported");
                 } else {
-                    Log.e("error", String.valueOf(status));
+                    Log.e("init TTS", "all ok");
                 }
+            } else {
+                Log.e("error", String.valueOf(status));
             }
         });
 
@@ -78,14 +75,11 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
                     counter = 1;
                 }
                 else{
-                    Log.e("Custom Adapter spinner Position", String.valueOf(customAdapter.sharedPreferences.getInt("pos", -1)));
-                    spinnerPosition = customAdapter.sharedPreferences.getInt("pos", -1);
+                    Log.e("Custom Adapter spinner Position", String.valueOf(programAdapter.sharedPreferences.getInt("pos", -1)));
+                    spinnerPosition = programAdapter.sharedPreferences.getInt("pos", -1);
                 }
 
                 spinner.setSelection(spinnerPosition);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putInt("pos", spinnerPosition);
-//                editor.apply();
             }
 
             @Override
@@ -107,8 +101,8 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
                         Intent intent = new Intent(ProgramsActivity.this, MainScreenActivity.class);
                         intent.putExtra("progSel", true);
                         intent.putExtra("temperature", tempText.getText().toString());
-                        intent.putExtra("program-text", programNames[customAdapter.sharedPreferences.getInt("pos", -1)]);
-                        intent.putExtra("program-icon", icons[customAdapter.sharedPreferences.getInt("pos", -1)]);
+                        intent.putExtra("program-text", programNames[programAdapter.sharedPreferences.getInt("pos", -1)]);
+                        intent.putExtra("program-icon", icons[programAdapter.sharedPreferences.getInt("pos", -1)]);
                         intent.putExtra("position", spinnerPosition);
                         long timerEnd = extras.getLong("timer-hour");
 //                        Log.e("Prog Act time", String.valueOf((timerEnd / (1000 * 60) % 60 )));
@@ -135,39 +129,36 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
         });
 
         ImageButton supportButton = findViewById(R.id.techSupport);
-        supportButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        supportButton.setOnClickListener(view -> {
 
-                if (extras != null) {
+            if (extras != null) {
 //                    Log.e("program set", String.valueOf(extras.getBoolean("second_fragment")));
-                    Log.e("second fragment in support button", String.valueOf(extras.getBoolean("second_fragment")));
-                    if (extras.getBoolean("second_fragment")) {
-                        Intent intent = new Intent(ProgramsActivity.this, SupportActivity.class);
-                        intent.putExtra("progSel", true);
-                        intent.putExtra("temperature", tempText.getText().toString());
-                        intent.putExtra("program-text", programNames[customAdapter.sharedPreferences.getInt("pos", -1)]);
-                        intent.putExtra("program-icon", icons[customAdapter.sharedPreferences.getInt("pos", -1)]);
-                        intent.putExtra("position", spinnerPosition);
-                        long timerEnd = extras.getLong("timer-hour");
+                Log.e("second fragment in support button", String.valueOf(extras.getBoolean("second_fragment")));
+                if (extras.getBoolean("second_fragment")) {
+                    Intent intent = new Intent(ProgramsActivity.this, SupportActivity.class);
+                    intent.putExtra("progSel", true);
+                    intent.putExtra("temperature", tempText.getText().toString());
+                    intent.putExtra("program-text", programNames[programAdapter.sharedPreferences.getInt("pos", -1)]);
+                    intent.putExtra("program-icon", icons[programAdapter.sharedPreferences.getInt("pos", -1)]);
+                    intent.putExtra("position", spinnerPosition);
+                    long timerEnd = extras.getLong("timer-hour");
 //                        Log.e("Prog Act time", String.valueOf((timerEnd / (1000 * 60) % 60 )));
-                        intent.putExtra("timer-hour", timerEnd);
-                        intent.putExtra("selprog", true);
-                        startActivityForResult(intent,5);
+                    intent.putExtra("timer-hour", timerEnd);
+                    intent.putExtra("selprog", true);
+                    startActivityForResult(intent,5);
 
-                    } else {
+                } else {
 //                        Log.e("back", "it continues");
-                        Intent intent = new Intent(ProgramsActivity.this, SupportActivity.class);
-                        intent.putExtra("current_position", spinnerPosition);
-                        intent.putExtra("supportButton", true);
-                        startActivityForResult(intent, 5);
-                    }
+                    Intent intent = new Intent(ProgramsActivity.this, SupportActivity.class);
+                    intent.putExtra("current_position", spinnerPosition);
+                    intent.putExtra("supportButton", true);
+                    startActivityForResult(intent, 5);
                 }
-                else{
-                    Log.e("extras is null", "support");
-                }
-
             }
+            else{
+                Log.e("extras is null", "support");
+            }
+
         });
 
 
@@ -214,13 +205,10 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
             timerHour.setValue(hour);
         }
 
-        timerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("hour", numberPicker.getValue());
-                editor.apply();
-            }
+        timerHour.setOnValueChangedListener((numberPicker, i, i1) -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("hour", numberPicker.getValue());
+            editor.apply();
         });
 
         NumberPicker timerMinutes = findViewById(R.id.timer_minutes);
@@ -233,28 +221,25 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
             timerMinutes.setValue(minutes);
         }
 
-        timerMinutes.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putInt("minutes", numberPicker.getValue());
-                editor.apply();
-            }
+        timerMinutes.setOnValueChangedListener((numberPicker, i, i1) -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("minutes", numberPicker.getValue());
+            editor.apply();
         });
 
         selectedProgram.setOnClickListener(view ->{
             Intent intent = new Intent(ProgramsActivity.this, MainScreenActivity.class);
             intent.putExtra("progSel", true);
             intent.putExtra("temperature", tempText.getText().toString());
-            Log.e("programs activity program-text", String.valueOf(customAdapter.sharedPreferences.getInt("pos", -1)));
-            intent.putExtra("program-text", customAdapter.sharedPreferences.getInt("pos", -1));
-            intent.putExtra("program-icon", icons[customAdapter.sharedPreferences.getInt("pos", -1)]);
+            Log.e("programs activity program-text", String.valueOf(programAdapter.sharedPreferences.getInt("pos", -1)));
+            intent.putExtra("program-text", programAdapter.sharedPreferences.getInt("pos", -1));
+            intent.putExtra("program-icon", icons[programAdapter.sharedPreferences.getInt("pos", -1)]);
             intent.putExtra("position", spinnerPosition);
 
             long timerEnd = System.currentTimeMillis() + ((long) timerHour.getValue() * 60 * 60 + timerMinutes.getValue() * 60L) * 1000;
             intent.putExtra("timer-hour", timerEnd);
             intent.putExtra("timer-minutes", timerMinutes.getValue());
-            String text = getResources().getString(R.string.tts_oven_status) + " " + programNames[customAdapter.sharedPreferences.getInt("pos", -1)]
+            String text = getResources().getString(R.string.tts_oven_status) + " " + programNames[programAdapter.sharedPreferences.getInt("pos", -1)]
                     + " " + getResources().getString(R.string.tts_oven_status_middle) + " " + tempText.getText().toString() + " " + getResources().getString(R.string.tts_oven_status_end);
             if(extras.getBoolean("voiceresponces")) {
                 t1.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
@@ -274,12 +259,12 @@ public class ProgramsActivity extends AppCompatActivity implements AdapterView.O
         ArrayAdapter<String> mForecastAdapter;
         String[] data = getResources().getStringArray(R.array.program_description);
 
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
-        mForecastAdapter = new ArrayAdapter<String>(ProgramsActivity.this, // The current context (this activity)
+        List<String> weekForecast = new ArrayList<>(Arrays.asList(data));
+        mForecastAdapter = new ArrayAdapter<>(ProgramsActivity.this, // The current context (this activity)
                 R.layout.list_item, // The name of the layout ID.
                 R.id.list_item_program_textview, // The ID of the textview to populate.
                 weekForecast);
-        ListView listView = (ListView) findViewById(R.id.listview_program);
+        ListView listView = findViewById(R.id.listview_program);
         listView.setAdapter(mForecastAdapter);
 
     }

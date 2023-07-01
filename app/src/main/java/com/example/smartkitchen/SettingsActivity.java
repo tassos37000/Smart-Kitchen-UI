@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -44,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity{
 
         Spinner languageSpinner = findViewById(R.id.language_spinner);
         String[] languageNames = getResources().getStringArray(R.array.language_names);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.settings_spinner_item, languageNames);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, R.layout.settings_spinner_item, languageNames);
         languageSpinner.setAdapter(spinnerAdapter);
 
         languageSpinner.setSelection(sharedPreferences.getInt("language_pos", 0));
@@ -86,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity{
 
         Spinner themeSpinner = findViewById(R.id.theme_spinner);
         String[] themeNames = getResources().getStringArray(R.array.theme_names);
-        ArrayAdapter<String> spinnerThemeAdapter = new ArrayAdapter<String>(this, R.layout.settings_spinner_item, themeNames);
+        ArrayAdapter<String> spinnerThemeAdapter = new ArrayAdapter<>(this, R.layout.settings_spinner_item, themeNames);
         themeSpinner.setAdapter(spinnerThemeAdapter);
 
         themeSpinner.setSelection(sharedPreferences.getInt("theme_pos", 0));
@@ -130,6 +129,9 @@ public class SettingsActivity extends AppCompatActivity{
                     intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
 
                 }
+                else{
+                    intent.putExtra("progSel", false);
+                }
             }
             intent.putExtra("settings", true);
             intent.putExtra("notifications", notificationSwitch.isChecked());
@@ -158,11 +160,11 @@ public class SettingsActivity extends AppCompatActivity{
     }
 
     /**
-     * @param toggleSwitch
-     * @param imageView
-     * @param key
-     * @param imageOn
-     * @param imageOff
+     * @param toggleSwitch the switch object
+     * @param imageView the image view object
+     * @param key key of shared preferences
+     * @param imageOn id of image when switch is on
+     * @param imageOff id of image when switch is off
      */
     private void changeSaveSwitchImage(SwitchCompat toggleSwitch, ImageView imageView, String key, int imageOn, int imageOff, int imageOn_dark, int imageOff_dark){
         boolean SwitchState = sharedPreferences.getBoolean(key, true);
