@@ -50,7 +50,7 @@ public class OvenOnFragment extends Fragment {
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("error", "This Language is not supported");
                 } else {
-                    Log.e("init TTS", "all ok");
+//                    Log.e("init TTS", "all ok");
                 }
             } else {
                 Log.e("error", String.valueOf(status));
@@ -114,6 +114,27 @@ public class OvenOnFragment extends Fragment {
             countdownText = binding.timerText;
             startTimer(timeLeftInMillis - System.currentTimeMillis());
         }
+
+        NotificationManager mNotificationManager;
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(activity, "notify_001");
+        Intent ii = new Intent(activity, MainScreenActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, ii, PendingIntent.FLAG_IMMUTABLE);
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.thermometer);
+        mBuilder.setContentTitle(getResources().getString(R.string.preheat_not_title));
+        mBuilder.setContentText(getResources().getString(R.string.preheat_not_desc));
+
+        mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        String channelId = "Your_channel_id";
+        NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_HIGH);
+        mNotificationManager.createNotificationChannel(channel);
+        mBuilder.setChannelId(channelId);
+        // enable-disable notification
+        if(getArguments().getBoolean("notifications")){
+            mNotificationManager.notify(0, mBuilder.build());
+        }
     }
 
     @Override
@@ -167,8 +188,8 @@ public class OvenOnFragment extends Fragment {
 
                 mBuilder.setContentIntent(pendingIntent);
                 mBuilder.setSmallIcon(R.drawable.thermometer);
-                mBuilder.setContentTitle("Timer end");
-                mBuilder.setContentText("The timer has ended");
+                mBuilder.setContentTitle(getResources().getString(R.string.timer_not_title));
+                mBuilder.setContentText(getResources().getString(R.string.timer_not_desc));
 
                 mNotificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
 

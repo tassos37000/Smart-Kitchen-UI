@@ -33,7 +33,7 @@ public class OvenOffFragment extends Fragment {
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("error", "This Language is not supported");
                 } else {
-                    Log.e("init TTS", "all ok");
+//                    Log.e("init TTS", "all ok");
                 }
             } else {
                 Log.e("error", String.valueOf(status));

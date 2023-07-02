@@ -39,6 +39,10 @@
     <string name="bottomLeft"> bottom left</string>
     <string name="bottomRight"> bottom right</string>
     <string name="tts_stove_end"> stove</string>
+    <string name="timer_not_title">Timer end</string>
+    <string name="timer_not_desc">The timer has ended</string>
+    <string name="preheat_not_title">Oven Preheated</string>
+    <string name="preheat_not_desc">The oven is preheated</string>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
 
     <!-- Strings used for SettingsActivity -->

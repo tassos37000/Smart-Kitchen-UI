@@ -32,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity{
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         ImageButton backButton = findViewById(R.id.backButton);
+        ImageButton supportButton = findViewById(R.id.techSupport);
 
         SwitchCompat voiceResponseSwitch = findViewById(R.id.voiceResponsesSwitch);
         ImageView voiceResponseImage = findViewById(R.id.imageVoiceResponse);
@@ -117,6 +118,31 @@ public class SettingsActivity extends AppCompatActivity{
 
         backButton.setOnClickListener(view -> {
             Intent intent = new Intent(SettingsActivity.this, MainScreenActivity.class);
+            Bundle extras = getIntent().getExtras();
+            if(extras != null){
+                if(extras.getBoolean("selprog")){
+                    intent.putExtra("progSel", extras.getBoolean("selprog"));
+                    intent.putExtra("position", extras.getInt("position"));
+                    intent.putExtra("temperature", extras.getString("temperature"));
+                    intent.putExtra("program-text", extras.getInt("program-text"));
+                    intent.putExtra("program-icon", extras.getInt("program-icon"));
+                    intent.putExtra("timer-hour", extras.getLong("timer-hour"));
+                    intent.putExtra("timer-minutes", extras.getInt("timer-minutes"));
+
+                }
+                else{
+                    intent.putExtra("progSel", false);
+                }
+            }
+            intent.putExtra("settings", true);
+            intent.putExtra("notifications", notificationSwitch.isChecked());
+            intent.putExtra("voice_response", voiceResponseSwitch.isChecked());
+            startActivity(intent);
+            this.finish();
+        });
+
+        supportButton.setOnClickListener(view -> {
+            Intent intent = new Intent(SettingsActivity.this, SupportActivity.class);
             Bundle extras = getIntent().getExtras();
             if(extras != null){
                 if(extras.getBoolean("selprog")){

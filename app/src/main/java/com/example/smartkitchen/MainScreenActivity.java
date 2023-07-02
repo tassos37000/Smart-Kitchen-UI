@@ -1,20 +1,13 @@
 package com.example.smartkitchen;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -28,9 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Locale;
 import java.util.Objects;
 
@@ -77,7 +68,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.e("error", "This Language is not supported");
                 } else {
-                    Log.e("init TTS", "all ok");
+//                    Log.e("init TTS", "all ok");
                 }
             } else {
                 Log.e("error", String.valueOf(status));
@@ -159,27 +150,6 @@ public class MainScreenActivity extends AppCompatActivity {
                 OvenOnFragment ovenOnFragment = new OvenOnFragment();
                 ovenOnFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.nav_host_fragment_content_main, ovenOnFragment, "OVEN_ON");
-
-                NotificationManager mNotificationManager;
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "notify_001");
-                Intent ii = new Intent(getApplicationContext(), MainScreenActivity.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, ii, PendingIntent.FLAG_IMMUTABLE);
-
-                mBuilder.setContentIntent(pendingIntent);
-                mBuilder.setSmallIcon(R.drawable.thermometer);
-                mBuilder.setContentTitle("Oven Preheated");
-                mBuilder.setContentText("The oven is preheated");
-
-                mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
-                String channelId = "Your_channel_id";
-                NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_HIGH);
-                mNotificationManager.createNotificationChannel(channel);
-                mBuilder.setChannelId(channelId);
-                // enable-disable notification
-                if(sharedPreferences.getBoolean("spnotification", true)){
-                    mNotificationManager.notify(0, mBuilder.build());
-                }
             }
 
         }
